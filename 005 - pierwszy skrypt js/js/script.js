@@ -1,6 +1,6 @@
 let ul;
 let newItemForm;
-let shoppingList;
+let inputError;
 
 document.addEventListener('DOMContentLoaded', () => {
   ul = document.getElementById('shoppingList');

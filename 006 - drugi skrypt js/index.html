@@ -10,6 +10,7 @@
     <title>zabawy z webdevem -- Adam Rębowicz</title>
 
     <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">
   </head>
 
   <body class="with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true" data-set-preferred-theme-onload="true">
@@ -34,13 +35,16 @@
           <div class="content">
 
 
-            <h1>Lorem Ipsum</h1>
-            <p>Dolor sit amet, consectetur adipiscing elit</p>
-            <p><a href="#">Lorem ipsum</a></p>
-            <p><a href="#">Dolor sit amet</a></p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor lectus a consectetur lobortis. Ut fringilla purus lectus, vitae auctor lorem volutpat vitae. Curabitur orci tortor, lobortis at dui lobortis, fermentum pharetra dolor. Praesent consectetur et ligula eget aliquet. Suspendisse ante nibh, dignissim nec vestibulum et, luctus non nulla. Nulla sagittis porttitor ipsum, in rhoncus neque porttitor sit amet. Sed ultrices cursus nunc eget efficitur. Donec in consectetur odio. Nam consectetur metus id odio varius rutrum. Nulla erat turpis, scelerisque vel diam at, mollis sollicitudin orci.
-            </p>
+            <h1>lista to-do</h1>
+            <form id="todoForm">
+              <input type="text" class="form-control" name="todoName" id="todoName" placeholder="podaj nazwę zadania">
+              <span class="inputDangerInfo" id="inputNameError"></span>
+              <textarea type="text" class="form-control" name="todoDesc" id="todoDesc" placeholder="podaj opis zadania"></textarea>
+              <span class="inputDangerInfo" id="inputDescError"></span>
+              <button type="submit" class="btn">zapisz</button>
+            </form>
+            <ul class="" id="todoList">
+            </ul>
 
 
           </div>
@@ -55,5 +59,6 @@
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
