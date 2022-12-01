@@ -35,13 +35,15 @@
           <div class="content">
 
 
-            <h1>Lorem Ipsum</h1>
-            <p>Dolor sit amet, consectetur adipiscing elit</p>
-            <p><a href="#">Lorem ipsum</a></p>
-            <p><a href="#">Dolor sit amet</a></p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor lectus a consectetur lobortis. Ut fringilla purus lectus, vitae auctor lorem volutpat vitae. Curabitur orci tortor, lobortis at dui lobortis, fermentum pharetra dolor. Praesent consectetur et ligula eget aliquet. Suspendisse ante nibh, dignissim nec vestibulum et, luctus non nulla. Nulla sagittis porttitor ipsum, in rhoncus neque porttitor sit amet. Sed ultrices cursus nunc eget efficitur. Donec in consectetur odio. Nam consectetur metus id odio varius rutrum. Nulla erat turpis, scelerisque vel diam at, mollis sollicitudin orci.
-            </p>
+            <h1>lista zakupów</h1>
+            <p>oto moja dynamiczna lista zakupów:</p>
+            <form class="shoppingListHeader" id="newItemForm">
+              <input type="text" class="form-control" name="shoppingItem" id="shoppingItem" placeholder="wprowadź produkt...">
+              <button type="submit" class="btn">zapisz</button>
+            </form>
+            <span class="inputDangerInfo" id="inputError"></span>
+            <ul id="shoppingList">
+            </ul>
 
 
           </div>
@@ -56,5 +58,6 @@
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>

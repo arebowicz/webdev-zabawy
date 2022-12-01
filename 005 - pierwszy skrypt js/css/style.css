@@ -1,0 +1,12 @@
+.shoppingListHeader {
+  display: flex;
+}
+
+.inputDanger {
+  border: 3px solid red !important;
+  color: red !important;
+}
+
+.inputDangerInfo {
+  color: red !important;
+}
