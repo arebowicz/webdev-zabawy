@@ -25,9 +25,12 @@
     }
     public function showMenu() {
       echo "<nav>\n";
-      while (list($name, $url) = each($this->menu)) {
+      foreach ($this->menu as $name => $url) {
         $this->showMenuItem($name, $url);
       }
+      // while (list($name, $url) = each($this->menu)) {
+      //   $this->showMenuItem($name, $url);
+      // }
       echo "</nav>";
     }
     public function showMenuItem($name, $url) {
