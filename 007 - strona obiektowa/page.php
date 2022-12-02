@@ -6,7 +6,6 @@
                          "Lorem" => "lorem.php",
                          "Ipsum" => "ipsum.php");
     public $content;
-    public $footer = "Adam Rębowicz -- 2022";
     public function create() {
       echo "<html>\n<head>\n";
       $this->setCharset();
@@ -14,7 +13,6 @@
       echo "</head>\n<body>\n";
       $this->showMenu();
       echo $this->content;
-      // $this->showFooter();
       echo "</body>\n</html>";
     }
     public function setCharset() {
@@ -28,9 +26,6 @@
       foreach ($this->menu as $name => $url) {
         $this->showMenuItem($name, $url);
       }
-      // while (list($name, $url) = each($this->menu)) {
-      //   $this->showMenuItem($name, $url);
-      // }
       echo "</nav>";
     }
     public function showMenuItem($name, $url) {
