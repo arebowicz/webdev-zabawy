@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
       let todoObj = {
         name: todoName.value,
         desc: todoDesc.value,
-        done: false
+        done: false,
+        dateStr: (new Date()).toLocaleString()
       };
       for (let todo of list) {
         if (todo.name === todoObj.name && todo.desc === todoObj.desc) {
@@ -73,12 +74,13 @@ const renderList = () => {
     button.classList.add('btn');
     button.addEventListener("click", changeTaskStatus);
     button.dataset.taskId = index;
-    button.innerText = "undone";
-    heading.innerText = todo.name;
+    button.innerText = "done?";
+    heading.innerText = todo.name + ' (' + todo.dateStr + ')';
     heading.style.color = "#0d518f";
     paragraph.innerText = todo.desc;
     if (todo.done) {
-      heading.style.color = "";
+      heading.style.color = "rgba(255, 255, 255, 0.5)";
+      paragraph.style.color = "rgba(255, 255, 255, 0.5)";
       paragraph.style.textDecoration = "line-through";
       button.innerText = "done!";
     }
