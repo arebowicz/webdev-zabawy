@@ -6,6 +6,7 @@ let list;
 document.addEventListener('DOMContentLoaded', () => {
   todoList = document.getElementById('todoList');
   let todoForm = document.getElementById('todoForm');
+  let resetLocalStorage = document.getElementById('resetLocalStorage');
   let inputNameError = document.getElementById('inputNameError');
   let inputDescError = document.getElementById('inputDescError');
   getTodoList();
@@ -48,6 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
     todoName.value = "";
     todoDesc.value = "";
   });
+  resetLocalStorage.addEventListener("click", () => {
+    localStorage.removeItem('list');
+    list = [];
+    renderList();
+  });
 });
 
 const renderList = () => {
@@ -69,12 +75,12 @@ const renderList = () => {
     button.dataset.taskId = index;
     button.innerText = "undone";
     heading.innerText = todo.name;
-    heading.style.color = "lightblue";
+    heading.style.color = "#0d518f";
     paragraph.innerText = todo.desc;
     if (todo.done) {
       heading.style.color = "";
       paragraph.style.textDecoration = "line-through";
-      button.innerText = "done";
+      button.innerText = "done!";
     }
     div.appendChild(heading);
     div.appendChild(paragraph);

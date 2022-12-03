@@ -8,6 +8,10 @@
   align-items: center;
 }
 
+div.col-8 > ul {
+  margin-left: 10px;
+}
+
 .todoList > div {
   margin-left: 10px;
 }

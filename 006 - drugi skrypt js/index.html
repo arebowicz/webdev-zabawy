@@ -32,21 +32,28 @@
 
       <div class="content-wrapper">
         <div class="d-flex align-items-center justify-content-center">
-          <div class="content">
+          <div class="container-lg">
+            <div class="row">
 
 
-            <h1>lista to-do</h1>
-            <form id="todoForm">
-              <input type="text" class="form-control" name="todoName" id="todoName" placeholder="podaj nazwę zadania">
-              <span class="inputDangerInfo" id="inputNameError"></span>
-              <textarea type="text" class="form-control" name="todoDesc" id="todoDesc" placeholder="podaj opis zadania"></textarea>
-              <span class="inputDangerInfo" id="inputDescError"></span>
-              <button type="submit" class="btn">zapisz</button>
-            </form>
-            <ul id="todoList">
-            </ul>
+              <div class="col-4">
+              <h1>lista <span style="white-space: nowrap;">to-do</span></h1>
+                <form id="todoForm">
+                  <input type="text" class="form-control" name="todoName" id="todoName" placeholder="podaj nazwę zadania">
+                  <span class="inputDangerInfo" id="inputNameError"></span>
+                  <textarea type="text" class="form-control" name="todoDesc" id="todoDesc" placeholder="podaj opis zadania"></textarea>
+                  <span class="inputDangerInfo" id="inputDescError"></span>
+                  <button type="submit" class="btn">zapisz</button>
+                </form>
+                <button id="resetLocalStorage" type="button" class="btn">resetuj listę</button>
+              </div>
+              <div class="col-8">
+                <ul id="todoList">
+                </ul>
+              </div>
 
 
+            </div>
           </div>
         </div>
       </div>
