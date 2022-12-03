@@ -1,12 +1,14 @@
 "use strict"
 
-let list = [];
+let todoList;
+let list;
 
 document.addEventListener('DOMContentLoaded', () => {
-  let todoList = document.getElementById('todoList');
+  todoList = document.getElementById('todoList');
   let todoForm = document.getElementById('todoForm');
   let inputNameError = document.getElementById('inputNameError');
   let inputDescError = document.getElementById('inputDescError');
+  getTodoList();
   todoForm.addEventListener('submit', (event) => {
     event.preventDefault();
     let todoName = event.target.elements[0];
@@ -18,17 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
         done: false
       };
       for (let todo of list) {
-        if (todo.name == todoObj.name && todo.desc == todoObj.desc) {
+        if (todo.name === todoObj.name && todo.desc === todoObj.desc) {
           return;
         }
       }
       list.push(todoObj);
-      todoList.innerHTML = "";
-      for (let todo of list) {
-        let li = document.createElement('li');
-        li.innerText = todo.name;
-        todoList.appendChild(li);
-      }
+      localStorage.setItem('list', JSON.stringify(list));
+      renderList();
     } else {
       if (todoName.value.length <= 2) {
         todoName.classList.add('inputDanger');
@@ -47,5 +45,61 @@ document.addEventListener('DOMContentLoaded', () => {
       todoDesc.classList.remove('inputDanger');
       inputDescError.innerText = "";
     }
+    todoName.value = "";
+    todoDesc.value = "";
   });
 });
+
+const renderList = () => {
+  let liList = Array.from(todoList.getElementsByTagName('li'));
+  liList.forEach((li) => {
+    let button = li.getElementsByTagName('button')[0];
+    button.removeEventListener("click", changeTaskStatus);
+  })
+  todoList.innerHTML = "";
+  list.forEach((todo, index) => {
+    let li = document.createElement('li');
+    let div = document.createElement('div');
+    let heading = document.createElement('h3');
+    let paragraph = document.createElement('p');
+    let button = document.createElement('button');
+    li.classList.add('todoList');
+    button.classList.add('btn');
+    button.addEventListener("click", changeTaskStatus);
+    button.dataset.taskId = index;
+    button.innerText = "undone";
+    heading.innerText = todo.name;
+    heading.style.color = "lightblue";
+    paragraph.innerText = todo.desc;
+    if (todo.done) {
+      heading.style.color = "";
+      paragraph.style.textDecoration = "line-through";
+      button.innerText = "done";
+    }
+    div.appendChild(heading);
+    div.appendChild(paragraph);
+    li.appendChild(button);
+    li.appendChild(div);
+    todoList.appendChild(li);
+  });
+};
+
+const changeTaskStatus = (event) => {
+  let todo = list[Math.round(event.target.dataset.taskId)];
+  if (todo.done) {
+    todo.done = false;
+  } else {
+    todo.done = true;
+  }
+  renderList();
+  localStorage.setItem('list', JSON.stringify(list));
+}
+
+const getTodoList = () => {
+  if (localStorage.getItem('list')) {
+    list = JSON.parse(localStorage.getItem('list'));
+    renderList();
+  } else {
+    list = [];
+  }
+}

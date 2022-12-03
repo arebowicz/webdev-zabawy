@@ -2,3 +2,12 @@
   border: 1px solid red !important;
   color: red !important;
 }
+
+.todoList {
+  display: flex;
+  align-items: center;
+}
+
+.todoList > div {
+  margin-left: 10px;
+}
