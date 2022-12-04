@@ -1,4 +1,4 @@
-/*
+/* za "PHP i MySQL Vademecum Profesjonalisty" Luke Welling, Laura Thomson
  * logowanie: mysql -u username -p
  * uruchomienie skryptu: SORUCE create_ksiegarnia.sql;
  */
