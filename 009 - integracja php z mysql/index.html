@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h1>księgarniana wyszukiwarka</h1>
+  <form action="results.php" method="post">
+    <p>wybierz obiekt poszukiwań:</p>
+    <select name="method">
+      <!-- polskie oznaczenia dla spójności w results.php -->
+      <option value="autor">autor</option>
+      <option value="tytul">tytuł</option>
+      <option value="isbn">isbn</option>
+    </select>
+    <p>wpisz szukane wyrażenie:</p>
+    <input name="expression" type="text" size="30">
+    <p></p>
+    <input type="submit" name="submit" value="szukaj">
+  </form>
+</body>
+</html>
