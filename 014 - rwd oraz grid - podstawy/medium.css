@@ -1,0 +1,11 @@
+.container {
+  max-width: 1140px;
+}
+
+.main-grid-md {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+    "section section"
+    "article1 article2"
+    "aside aside";
+}

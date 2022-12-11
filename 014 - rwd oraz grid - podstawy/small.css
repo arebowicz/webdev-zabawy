@@ -1,0 +1,64 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+nav {
+  background-color: rgba(0, 0, 0, 0.9);
+  height: 70px;
+}
+
+.container {
+  width: 98%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav > .container {
+  justify-content: space-between;
+}
+
+.nav-items > li {
+  display: inline;
+}
+
+.nav-items > li a {
+  text-decoration: none;
+  color: white;
+}
+
+header h1 {
+  font-size: 64px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.main-grid {
+  height: 50vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "section"
+    "article1"
+    "article2"
+    "aside";
+}
+
+.main-section {
+  grid-area: section;
+}
+
+.aside {
+  grid-area: aside;
+}
+
+.article1 {
+  grid-area: article1;
+}
+
+.article2 {
+  grid-area: article2;
+}

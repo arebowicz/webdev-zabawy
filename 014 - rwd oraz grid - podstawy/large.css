@@ -1,0 +1,6 @@
+.main-grid-lg {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: 
+    "section section aside"
+    "article1 article2 aside";
+}
