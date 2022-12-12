@@ -1,0 +1,21 @@
+.courier-item {
+  width: 110px;
+  height: 110px;
+  background-size: 100px;
+}
+
+.courier-box > #dhl {
+  background-position-y: 27.5px;
+}
+
+#dhl > #dhl-price {
+  bottom: 27.5px;
+}
+
+.courier-box > #dpd {
+  background-position-y: 20px;
+}
+
+#dpd > #dpd-price {
+  bottom: 22.5px;
+}

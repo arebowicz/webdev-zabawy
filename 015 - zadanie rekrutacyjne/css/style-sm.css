@@ -1,0 +1,63 @@
+.container {
+  width: 98%;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.courier-app-bg {
+  background-color: #fadadd;
+}
+
+.courier-app {
+  margin: 5px;
+  border-radius: 10px;
+  background-color: cornsilk;
+}
+
+.courier-app > h2 {
+  text-align: center;
+}
+
+.courier-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.courier-item {
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  background-color: gainsboro;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-size: 90px;
+}
+
+.courier-box > #dhl {
+  background-image: url(../images/icons/dhl-logo.png);
+  background-position-y: 25px;
+}
+
+#dhl > #dhl-price {
+  position: absolute;
+  bottom: 25px;
+}
+
+.courier-box > #dpd {
+  background-image: url(../images/icons/dpd-logo.png);
+  background-position-y: 20px;
+}
+
+#dpd > #dpd-price {
+  position: absolute;
+  bottom: 20px;
+}

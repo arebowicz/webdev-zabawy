@@ -1,0 +1,25 @@
+.container {
+  max-width: 1320px;
+}
+
+.courier-item {
+  width: 120px;
+  height: 120px;
+  background-size: 110px;
+}
+
+.courier-box > #dhl {
+  background-position-y: 30px;
+}
+
+#dhl > #dhl-price {
+  bottom: 30px;
+}
+
+.courier-box > #dpd {
+  background-position-y: 20px;
+}
+
+#dpd > #dpd-price {
+  bottom: 25px;
+}
