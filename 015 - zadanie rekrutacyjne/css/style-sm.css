@@ -139,7 +139,7 @@ body {
   z-index: 2;
 }
 
-.empty {
+.empty-post-code {
   background-color: white;
   width: 110px;
   height: 15px;
@@ -169,4 +169,14 @@ body {
   height: 22px;
   border-radius: 10px;
   text-align: center;
+}
+
+.info {
+  text-align: right;
+  cursor: pointer;
+}
+
+.container-helper {
+  display: flex;
+  justify-content: space-between;
 }
