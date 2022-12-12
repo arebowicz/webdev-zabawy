@@ -81,3 +81,29 @@ body {
 .show-more-action {
   cursor: pointer;
 }
+
+.show-more > .courier-box {
+  display: none;
+  
+}
+
+.courier-print {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.print-span {
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.toggle-on, .toggle-off {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle-on {
+  display: none;
+}
