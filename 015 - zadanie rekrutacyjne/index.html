@@ -14,85 +14,96 @@
 <body>
   <div class="container">
     <div class="courier-app-bg">
-      <div class="courier-app">
-        <div class="courier-print">
-          <img src="images/icons/printer.png" height="25px">
-          <span class="print-span">etykieta zwrotna:</span>
-          <div class="print-toggler">
-            <div class="toggle-on">
-              <img src="images/icons/toggle-on.png" height="25px">
-              <span class="print-span">(tak)</span>
-            </div>
-            <div class="toggle-off">
-              <img src="images/icons/toggle-off.png" height="25px">
-              <span class="print-span">(nie)</span>
-            </div>
-          </div>
-        </div>
-        <h2>wybierz kuriera:</h2>
-        <div class="courier-box">
-          <div class="courier-item" id="dhl">
-            <div id="dhl-price">
-              12,99 zł
+        <form class="courier-app">
+          <div class="courier-print">
+            <img src="images/icons/printer.png" height="25px">
+            <span class="print-span">etykieta zwrotna:</span>
+            <div class="print-toggler">
+              <div class="toggle-on">
+                <img src="images/icons/toggle-on.png" height="25px">
+                <span class="print-span">(tak)</span>
+              </div>
+              <div class="toggle-off">
+                <img src="images/icons/toggle-off.png" height="25px">
+                <span class="print-span">(nie)</span>
+              </div>
             </div>
           </div>
-          <div class="courier-item" id="dpd">
-            <div id="dpd-price">
-              15,99 zł
-            </div>
-          </div>
-          <div class="courier-item" id="fedex" style="align-items:center">
-            <div id="fedex-price">
-              logo <br /> cena
-            </div>
-          </div>
-          <div class="courier-item" id="inpost-kurier" style="align-items:center">
-            <div id="inpost-kurier-price">
-              logo <br /> cena
-            </div>
-          </div>
-          <div class="courier-item" id="inpost-paczkomaty" style="align-items:center">
-            <div id="inpost-paczkomaty-price">
-              logo <br /> cena
-            </div>
-          </div>
-          <div class="courier-item" id="gls" style="align-items:center">
-            <div id="gls-price">
-              logo <br /> cena
-            </div>
-          </div>
-          <div class="courier-item" id="ups" style="align-items:center">
-            <div id="ups-price">
-              logo <br /> cena
-            </div>
-          </div>
-        </div>
-        <div class="show-more">
-          <span class="show-more-action"><h2>pokaż więcej</h2></span>
+          <h2>wybierz kuriera:</h2>
           <div class="courier-box">
-            <div class="courier-item" id="xxx" style="align-items:center">
-              <div id="xxx-price">
+            <input class="check-with-label" type="radio" id="dhl" name="which-courier" value="dhl">
+            <label class="courier-item" for="dhl" id="dhl">
+              <span class="dhl-price">
+                12,99 zł
+              </span>
+            </label>
+            <input class="check-with-label" type="radio" id="dpd" name="which-courier" value="dpd">
+            <label class="courier-item" for="dpd" id="dpd">
+              <span class="dpd-price">
+                15,99 zł
+              </span>
+            </label>
+            <input class="check-with-label" type="radio" id="fedex" name="which-courier" value="fedex">
+            <label class="courier-item" for="fedex" id="fedex" style="align-items:center">
+              <span class="fedex-price">
                 logo <br /> cena
-              </div>
-            </div>
-            <div class="courier-item" id="yyy" style="align-items:center">
-              <div id="yyy-price">
+              </span>
+            </label>
+            <input class="check-with-label" type="radio" id="inpost-kurier" name="which-courier" value="inpost-kurier">
+            <label class="courier-item" for="inpost-kurier" id="inpost-kurier" style="align-items:center">
+              <span class="inpost-kurier-price">
                 logo <br /> cena
-              </div>
-            </div>
-            <div class="courier-item" id="zzz" style="align-items:center">
-              <div id="zzz-price">
+              </span>
+            </label>
+            <input class="check-with-label" type="radio" id="inpost-paczkomaty" name="which-courier" value="inpost-paczkomaty">
+            <label class="courier-item" for="inpost-paczkomaty" id="inpost-paczkomaty" style="align-items:center">
+              <span class="inpost-paczkomaty-price">
                 logo <br /> cena
-              </div>
-            </div>
-            <div class="courier-item" id="aaa" style="align-items:center">
-              <div id="aaa-price">
+              </span>
+            </label>
+            <input class="check-with-label" type="radio" id="gls" name="which-courier" value="gls">
+            <label class="courier-item" for="gls" id="gls" style="align-items:center">
+              <span class="gls-price">
                 logo <br /> cena
-              </div>
+              </span>
+            </label>
+            <input class="check-with-label" type="radio" id="ups" name="which-courier" value="ups">
+            <label class="courier-item" for="ups" id="ups" style="align-items:center">
+              <span class="ups-price">
+                logo <br /> cena
+              </span>
+            </label>
+          </div>
+          <div class="show-more">
+            <span class="show-more-action"><h2>pokaż więcej</h2></span>
+            <div class="courier-box">
+                <input class="check-with-label" type="radio" id="xxx" name="which-courier" value="xxx">
+                <label class="courier-item" for="xxx" id="xxx" style="align-items:center">
+                  <span class="xxx-price">
+                    logo <br /> cena
+                  </span>
+                </label>
+                <input class="check-with-label" type="radio" id="yyy" name="which-courier" value="yyy">
+                <label class="courier-item" for="yyy" id="yyy" style="align-items:center">
+                  <span class="yyy-price">
+                    logo <br /> cena
+                  </span>
+                </label>
+                <input class="check-with-label" type="radio" id="zzz" name="which-courier" value="zzz">
+                <label class="courier-item" for="zzz" id="zzz" style="align-items:center">
+                  <span class="zzz-price">
+                    logo <br /> cena
+                  </span>
+                </label>
+                <input class="check-with-label" type="radio" id="aaa" name="which-courier" value="aaa">
+                <label class="courier-item" for="aaa" id="aaa" style="align-items:center">
+                  <span class="aaa-price">
+                    logo <br /> cena
+                  </span>
+                </label>
             </div>
           </div>
-        </div>
-      </div>
+        </form>
     </div>
   </div>
   <script src="js/script.js"></script>

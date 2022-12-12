@@ -63,7 +63,7 @@ body {
   background-position-y: 25px;
 }
 
-#dhl > #dhl-price {
+.courier-item > .dhl-price {
   position: absolute;
   bottom: 25px;
 }
@@ -73,7 +73,7 @@ body {
   background-position-y: 20px;
 }
 
-#dpd > #dpd-price {
+.courier-item > .dpd-price {
   position: absolute;
   bottom: 20px;
 }
@@ -106,4 +106,13 @@ body {
 
 .toggle-on {
   display: none;
+}
+
+input[type="radio"] {
+  left: -999em;
+  position: absolute;
+}
+
+.check-with-label:checked + .courier-item {
+  background-color: #bababa;
 }
