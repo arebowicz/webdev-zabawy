@@ -1,25 +1,34 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .container {
   width: 98%;
   height: 100vh;
   margin: 0 auto;
   background-color: aliceblue;
+  position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .courier-app-bg {
   background-color: #fadadd;
+  position: absolute;
+  top: 250px;
 }
 
 .courier-app {
   margin: 5px;
+  padding: 5px;
   border-radius: 10px;
   background-color: cornsilk;
 }
 
-.courier-app > h2 {
+.courier-app > h2, .show-more-action > h2 {
   text-align: center;
+  font-size: 24px;
+  margin: 10px 0;
 }
 
 .courier-box {
@@ -40,6 +49,13 @@
   background-repeat: no-repeat;
   background-position-x: center;
   background-size: 90px;
+  transition: .5s;
+  cursor: pointer;
+}
+
+.courier-item:hover {
+  box-sizing: border-box;
+  background-color: #bababa;
 }
 
 .courier-box > #dhl {
@@ -60,4 +76,8 @@
 #dpd > #dpd-price {
   position: absolute;
   bottom: 20px;
+}
+
+.show-more-action {
+  cursor: pointer;
 }
