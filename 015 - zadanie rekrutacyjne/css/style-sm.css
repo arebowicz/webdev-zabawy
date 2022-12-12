@@ -108,11 +108,23 @@ body {
   display: none;
 }
 
-input[type="radio"] {
+.courier-box > input[type="radio"] {
   left: -999em;
   position: absolute;
 }
 
 .check-with-label:checked + .courier-item {
   background-color: #bababa;
+}
+
+.button-submit-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  margin-bottom: 5px;
+}
+
+.button-submit {
+  padding: 7px 15px;
+  border-radius: 10px;
 }

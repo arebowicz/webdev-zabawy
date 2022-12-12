@@ -25,4 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
       printingOff = true;
     }
   });
+  let formCourier = document.querySelector(".courier-app");
+  formCourier.addEventListener("submit", event => {
+    event.preventDefault();
+    // pamiętaj o przekazaniu dalej wartości zmiennej printingOff
+  });
 });
