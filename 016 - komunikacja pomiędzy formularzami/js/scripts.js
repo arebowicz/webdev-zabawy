@@ -88,8 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (isFormOk) {
       for (let key in validationList) {
-        key.isSet = false;
-        key.wasClicked = false;
+        validationList[key].isSet = false;
+        validationList[key].wasClicked = false;
       }
       form1.querySelector(":scope #yes").checked = false;
       form1.querySelector(":scope #no").checked = false;
