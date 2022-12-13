@@ -80,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
       yesOrNo = true;
     } else {
       form1.querySelector(":scope #our-page-field").classList.add("wrong-input");
-      return;
     }
     if (yesOrNo && validationList.firstname.isSet
         && validationList.surname.isSet
@@ -97,6 +96,16 @@ document.addEventListener("DOMContentLoaded", () => {
       form1.querySelector(":scope #firstname").value = "";
       form1.querySelector(":scope #surname").value = "";
       form2.querySelector(":scope #email").value = "";
+    } else {
+      if (!validationList.firstname.isSet) {
+        form1.querySelector(":scope #firstname").classList.add("wrong-input");
+      }
+      if (!validationList.surname.isSet) {
+        form1.querySelector(":scope #surname").classList.add("wrong-input");
+      }
+      if (!validationList.email.isSet) {
+        form2.querySelector(":scope #email").classList.add("wrong-input");
+      }
     }
   });
 });
