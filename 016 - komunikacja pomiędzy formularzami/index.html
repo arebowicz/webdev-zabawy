@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link href="css/styles.css" rel="stylesheet">
+  <title>komunikacja pomiędzy formularzami</title>
+</head>
+<body>
+  <!-- formularzy nie powinno się zagnieżdżać (a może wręcz nie można?) -->
+  <!-- (semantyczna niepoprawność?) -->
+  <!-- spróbuję to "obejść" -- małym skryptem -->
+  <!-- pytanie: czy takie dzielenie bywa w ogóle potrzebne? -->
+  <div class="container-lg">
+    <p>próba "połączenia" obydwu formularzy (obsługiwana przez JS)</p>
+    <form id="form1" style="margin-bottom: 20px;">
+      <fieldset class="customized-form-fieldset" style="min-width: 350px">
+        <legend class="customized-legend" align="center"><h2>szczegóły</h2></legend>
+        <h3>czy podoba ci się nasza strona?</h3>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="form1" id="yes">
+          <label class="form-check-label" for="yes">
+            tak
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="form1" id="no">
+          <label class="form-check-label" for="no">
+            nie
+          </label>
+        </div>
+        <h3>podaj imię i nazwisko</h3>
+        <div>
+          <input type="text" class="form-control" style="max-width: 250px; margin-bottom: 5px;" id="firstname" placeholder="imię">
+          <input type="text" class="form-control" style="max-width: 250px; margin-bottom: 5px;" id="surname" placeholder="nazwisko">
+        </div>
+      </fieldset>
+    </form>
+    <form id="form2">
+      <fieldset class="customized-form-fieldset" style="min-width: 350px">
+        <legend class="customized-legend" align="center"><h2>podsumowanie</h2></legend>
+        <h3>podaj adres e-mail</h3>
+        <div>
+          <input type="email" class="form-control" style="max-width: 250px; margin-bottom: 5px;" id="email" placeholder="e-mail">
+          <div id="nameHelp" class="form-text" style="margin-bottom: 5px; text-align: center;">twoje dane są bezpieczne</div>
+        </div>
+        <div style="display: flex; justify-content: center;">
+          <button type="submit" class="btn btn-primary" style="margin-bottom: 5px;">wyślij</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <script src="js/scripts.js"></script>
+</body>
+</html>

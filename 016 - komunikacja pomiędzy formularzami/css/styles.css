@@ -1,0 +1,20 @@
+.customized-form-fieldset {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #dee2e6;
+  width: fit-content;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.customized-legend {
+  float: none;
+  margin-bottom: 0px;
+  width: auto;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.customized-legend > h2 {
+  margin-bottom: 0px;
+}
