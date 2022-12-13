@@ -18,3 +18,7 @@
 .customized-legend > h2 {
   margin-bottom: 0px;
 }
+
+.wrong-input {
+  border: 1px red solid;
+}

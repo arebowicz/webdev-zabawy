@@ -13,38 +13,45 @@
   <!-- (semantyczna niepoprawność?) -->
   <!-- spróbuję to "obejść" -- małym skryptem -->
   <!-- pytanie: czy takie dzielenie bywa w ogóle potrzebne? -->
+  <!-- pytanie 2: czy jest ono bezpieczne? -->
   <div class="container-lg">
     <p>próba "połączenia" obydwu formularzy (obsługiwana przez JS)</p>
     <form id="form1" style="margin-bottom: 20px;">
       <fieldset class="customized-form-fieldset" style="min-width: 350px">
         <legend class="customized-legend" align="center"><h2>szczegóły</h2></legend>
-        <h3>czy podoba ci się nasza strona?</h3>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="form1" id="yes">
-          <label class="form-check-label" for="yes">
-            tak
-          </label>
+        <div id="our-page-field">
+          <h3>czy podoba ci się nasza strona?</h3>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="form1" id="yes">
+            <label class="form-check-label" for="yes">
+              tak
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="form1" id="no">
+            <label class="form-check-label" for="no">
+              nie
+            </label>
+          </div>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="form1" id="no">
-          <label class="form-check-label" for="no">
-            nie
-          </label>
-        </div>
-        <h3>podaj imię i nazwisko</h3>
-        <div>
-          <input type="text" class="form-control" style="max-width: 250px; margin-bottom: 5px;" id="firstname" placeholder="imię">
-          <input type="text" class="form-control" style="max-width: 250px; margin-bottom: 5px;" id="surname" placeholder="nazwisko">
+        <div id="firstname-surname-field">
+          <h3>podaj imię i nazwisko</h3>
+          <div>
+            <input type="text" class="form-control" style="max-width: 250px; margin-bottom: 5px;" id="firstname" placeholder="imię">
+            <input type="text" class="form-control" style="max-width: 250px; margin-bottom: 5px;" id="surname" placeholder="nazwisko">
+          </div>
         </div>
       </fieldset>
     </form>
     <form id="form2">
       <fieldset class="customized-form-fieldset" style="min-width: 350px">
         <legend class="customized-legend" align="center"><h2>podsumowanie</h2></legend>
-        <h3>podaj adres e-mail</h3>
-        <div>
-          <input type="email" class="form-control" style="max-width: 250px; margin-bottom: 5px;" id="email" placeholder="e-mail">
-          <div id="nameHelp" class="form-text" style="margin-bottom: 5px; text-align: center;">twoje dane są bezpieczne</div>
+        <div id="email-field">
+          <h3>podaj adres e-mail</h3>
+          <div>
+            <input type="text" class="form-control" style="max-width: 250px; margin-bottom: 5px;" id="email" placeholder="e-mail">
+            <div id="nameHelp" class="form-text" style="margin-bottom: 5px; text-align: center;">twoje dane są bezpieczne</div>
+          </div>
         </div>
         <div style="display: flex; justify-content: center;">
           <button type="submit" class="btn btn-primary" style="margin-bottom: 5px;">wyślij</button>
