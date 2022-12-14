@@ -1,0 +1,50 @@
+.some-form {
+  display: flex;
+  align-items: center;
+}
+
+.submit-button {
+  background-image: url(add.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  height: 30px;
+  width: 30px;
+  border: none;
+  margin-left: 5px;
+}
+
+/*
+
+  można też:
+
+  input[type=text] {
+  
+  }
+
+  input[type=text]:focus {
+  
+  }
+
+*/
+
+.some-class {
+  height: 20px;
+  width: 150px;
+  transition: .5s;
+  border: 2px solid #d3d3d3;
+  outline: none;
+  border-radius: 5px;
+  background-image: url('add.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-left: 25px;
+}
+
+.some-class:focus {
+  width: 200px;
+  outline: none;
+  border: 2px solid black;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
