@@ -35,7 +35,7 @@
   border: 2px solid #d3d3d3;
   outline: none;
   border-radius: 5px;
-  background-image: url('add.png');
+  background-image: url('add2.png');
   background-repeat: no-repeat;
   background-size: contain;
   padding-left: 25px;
@@ -43,8 +43,7 @@
 
 .some-class:focus {
   width: 200px;
-  outline: none;
   border: 2px solid black;
   background-color: #e0e0e0;
-  border-radius: 5px;
+  background-image: url('add.png');
 }
