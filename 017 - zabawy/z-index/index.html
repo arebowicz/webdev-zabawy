@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>ćwiczenia z z-index</title>
+</head>
+<body>
+  <!-- zadziała zgodnie z oczekiwaniami: -->
+  <div class="container01">
+    <div class="box-black"></div>
+    <div class="box-red"></div>
+  </div>
+  <br />
+  <!-- zadziała zgodnie z oczekiwaniami: -->
+  <div class="container01">
+    <div class="container02">
+      <div class="box-black"></div>
+    </div>
+    <div class="box-red"></div>
+  </div>
+  <br />
+  <!-- a tu box-black jest pod box-red! -->
+  <!-- wyjaśnienie: w  container03  utworzyłem  "static context"  -- nową warstwę, która pozwala układać elementy względem siebie -->
+  <!-- (a więc z-index nie jest właściwością globalną) -->
+  <!-- ową warstwę tworzy kombinacja  "position: + z-index:"  -->
+  <!-- domyślnie dokument html tworzy "pierwszą", "nadrzędną" warstwę -->
+  <!-- uwaga: nowy  "static context"  mogę utworzyć również za pomocą  --  isolation: isolate -->
+  <div class="container01">
+    <div class="container03">
+      <div class="box-black"></div>
+    </div>
+    <div class="box-red"></div>
+  </div>
+</body>
+</html>
