@@ -1,0 +1,43 @@
+.container {
+  width: 700px;
+  height: 90vh;
+  margin: 0 auto;
+}
+
+.drink-form {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.drink-form-item {
+  width: 100px;
+  height: 100px;
+  margin: 0 10px;
+  background-color: #d3d3d3;
+  border-radius: 50%;
+  transition: .5s;
+}
+
+.drink-form-item:hover {
+  background-color: #a2a2a2;
+  box-sizing: border-box;
+  border: 2px solid #858585;
+}
+
+input[type="radio"]:checked + .drink-form-item {
+  background-color: #a2a2a2;
+}
+
+.drink-form-item > label {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
