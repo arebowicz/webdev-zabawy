@@ -1,0 +1,53 @@
+/* część pierwsza */
+
+/* pseudoklasy wybierają elementy ze względu na stan w jakim się owe elementy znajdują */
+/*
+  zastosowanie:
+
+  selektor:pseudoklasa {
+    własność: wartość;
+  }
+
+*/
+
+a {
+  font-size: 20px;
+}
+
+/* styl zostanie zastosowany dla linków już odwiedzonych */
+a:visited {
+  color: blueviolet;
+}
+
+/* styl zostanie zastosowany po najechaniu kursorem nad element a */
+a:hover {
+  color: red;
+}
+
+/* styl zostanie zastosowany po kliknieciu elementu a */
+a:active {
+  color: green;
+}
+
+
+/* część druga */
+
+/* proste wyświetlenie dodatkowych informacji po najechaniu kursorem */
+/* zauważ: pseudoklasy można łączyć (p:first-child:hover) */
+
+div > p:nth-child(2) { 
+  display: none;
+}
+
+div > p:first-child:hover + p:nth-child(2) {
+  display: block;
+}
+
+
+/* część trzecia */
+
+/* pseudoklasa focus dla elementu input typu tekstowego */
+
+form > input:focus {
+  background-color: lightgreen;
+}
