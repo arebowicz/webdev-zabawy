@@ -1,0 +1,24 @@
+/* samo występowanie danego atrybutu */
+[class] {
+  background-color: black;
+}
+
+/* wartość atrybutu równa (musi wynosić dokładnie tyle, nie mniej, nie więcej) */
+[class="class1"] {
+  background-color: red;
+}
+
+/* w atrybucie (gdziekolwiek, m. in. class234) znajduje się dany tekst */
+[class*="class2"] {
+  background-color: green;
+}
+
+/* w atrybucie znajduje się dokładnie taki string oddzielony spacjami (xxx class3 yyy) */
+[class~="class3"] {
+  background-color: blue;
+}
+
+/* ale: przecież użytkowo, zazwyczaj, powinien wystarczać ten sposób */
+.class4 {
+  background-color: lightblue;
+}
