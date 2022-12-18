@@ -39,7 +39,7 @@ div > p:nth-child(2) {
   display: none;
 }
 
-div > p:first-child:hover + p:nth-child(2) {
+div > p:first-child:hover + p {
   display: block;
 }
 
