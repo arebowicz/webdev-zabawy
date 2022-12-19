@@ -1,0 +1,15 @@
+ul {
+  font-size: 0.88em;
+}
+
+/*
+  jak to naprawić?
+
+  albo:
+    font-size: 0.8rem
+
+  albo:
+    ul ul {
+      font-size: 1em;
+    }
+*/
