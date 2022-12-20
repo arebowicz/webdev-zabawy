@@ -36,3 +36,13 @@ body {
   left: -35px;
   top: 20px;
 }
+
+.offer.top:hover {
+  border-width: 5px;
+}
+
+.offer.top:hover .highlighted-transformed-text span {
+  padding: 5px 0;
+  top: 17px;
+  left: -38px;
+}
