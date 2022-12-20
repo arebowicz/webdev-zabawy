@@ -1,0 +1,21 @@
+.container {
+  padding: 10px;
+  border: 2px solid black;
+}
+
+.content {
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 10px;
+  width: 30%;
+  border: 2px solid red;
+  float: left;
+}
+
+/* dzięki poniższemu clearfixowi rodzic "obejmuje" wysokością wszystkie dzieci z właściwością "float" */
+.clearfix::after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+}
