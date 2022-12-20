@@ -1,0 +1,38 @@
+body {
+  background-color: black;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.offer {
+  box-sizing: border-box;
+  width: 250px;
+  height: 400px;
+  background-color: #63666A;
+  margin: 15px;
+  border-radius: 10px;
+}
+
+.offer.top {
+  border: 3px solid green;
+  overflow: hidden;
+}
+
+.offer.top .highlighted-transformed-text {
+  position: relative;
+}
+
+.highlighted-transformed-text span {
+  position: absolute;
+  background-color: green;
+  width: 150px;
+  padding: 3px 0;
+  text-align: center;
+  transform: rotate(-45deg);
+  left: -35px;
+  top: 20px;
+}
