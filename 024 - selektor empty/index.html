@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>selektor empty</title>
+  <style>
+    :empty {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- uważaj: znaczniki samodomykające są "empty" z definicji -- nie mają żadnych potomków! -->
+  <input type="text">
+  <img src="" alt="pusty obrazek">
+  <!-- ale selektor wybierający wszystkie "puste" znaczniki można sprytnie ograniczyć -- :empty:not(input, img) -->
+
+  <!-- poniższe znaczniki nie mają żadnych dzieci (także węzłów tekstowych!) więc zastosowana zostanie do nich reguła z :empty -->
+  <button type="button" value="test"></button>
+  <div style="width: 200px; height: 200px; background-color: black;"></div>
+</body>
+</html>
