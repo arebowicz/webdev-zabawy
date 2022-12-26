@@ -1,8 +1,8 @@
 inspiracja:
 https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 
-flexboxa wdrożono celem umożliwienia wydajnego zarządzania przestrzenią pomiędzy elementami w kontenerze
-flexowy kontener może zmieniać wymiary swoich elementów i ustalać ich kolejność aby jak najlepiej wypełnić dostępną przestrzeń (więc może odpowiednio rozciągać elementy, by wypełnić dostępne miejsce, bądź kurczyć je, aby się zmieściły)
+flexboxa wdrożono celem umożliwienia wydajnego zarządzania (wolną) przestrzenią pomiędzy elementami w kontenerze
+we flexboxie możemy zmieniać wymiary elementów kontenera i ustalać ich kolejność aby jak najlepiej wypełnić dostępną przestrzeń (więc możemy odpowiednio rozciągać elementy, by wypełnić dostępne miejsce, bądź kurczyć je, aby się zmieściły)
 flexbox przeznaczony jest dla niewielkich komponentów bądź układów o mniejszej skali, podczas gdy grida stosujemy do tworzenia układów wielko-skalowych
 
 poniżej opiszę różne właściwości, najpierw, samego kontenera flex, a następnie, jego elementów (czyli bezpośrednich potomków [dzieci] flexowego kontenera)
@@ -25,7 +25,7 @@ flex-direction: row | row-reverse | column | column-reverse - ustanawia kierunek
 
 flex-wrap: nowrap | wrap | wrap-reverse - domyślnie elementy próbują zmieścić się w jednej linii (wartość nowrap), lecz można to zmienić i zezwolić na zawijanie elementów (powstaną wtedy rzędy/kolumny)
 
-flex-flow: column wrap - skrót dla właściwości flex-direction i flex-wrap (domyślnie: row nowrap)
+flex-flow: column wrap - skrót dla właściwości flex-direction i flex-wrap (domyślnie: row nowrap) -- można pominąć którąś z wartości (skrót)
 
 justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly | ... | ... + safe | unsafe - definiuje wyrównanie elementów wzdłuż osi głównej (jak dystrybuować wolną przestrzeń, o ile takowa istnieje), domyślnie wartość flex-start, na zdjęciu z powyższego linku istniejące niuanse: between/around/evenly
 
@@ -41,15 +41,15 @@ właściwości elementów (dzieci kontenera):
 
 order - domyślnie, dzieci układane są w kolejności "źródłowej" (zgodnej z porządkiem htmlowym), jednak dzięki właściwości order możemy zmienić tę kolejność (stosując wartości ujemne i dodatnie, domyślnie każdy element ma "order: 0"), uwaga: elementy o identycznym numerze porządkowym "powracają" do kolejności "źródłowej" -- należy uważać, by nie zaburzać flow poruszania się klawiaturą
 
-flex-grow - domyślnie 0, a wartości ujemne są nieprawidłowe... określa jak element "urośnie" (wzdłuż głównej osi) w porównaniu do pozostałych elementów, gdy pozostała jakaś przestrzeń, by w ogóle elementy mogły urosnąć (ta przestrzeń jest dzielona zgodnie ze stosunkiem określonym przez podane współczynniki -- <pojedyncza-wartość-flex-grow> / <suma-wartości-flex-grow>)
+flex-grow - domyślnie 0, a wartości ujemne są nieprawidłowe... określa jak element "urośnie" (wzdłuż głównej osi) w porównaniu do pozostałych elementów, gdy dostępna jest jakaś wolna przestrzeń, by w ogóle elementy mogły urosnąć (ta przestrzeń jest dzielona zgodnie ze stosunkiem określonym przez podane współczynniki -- <pojedyncza-wartość-flex-grow> / <suma-wartości-flex-grow>)
 
-flex-shrink - domyślnie 1, a wartości ujemne są nieprawidłowe... podobnie do flex-grow, tylko że oznacza "kurczenie" elementów, bo przecież rozmiar wszystkich dzieci może być większy od rozmiaru kontenera (główna oś!), wówczas następuje dopasowanie do rozmiaru kontenera (zgodnie z podanymi współczynnikami)
+flex-shrink - domyślnie 1, a wartości ujemne są nieprawidłowe... podobnie do flex-grow, tylko że oznacza "kurczenie" elementów, bo przecież sumaryczny rozmiar wszystkich dzieci może być większy od rozmiaru kontenera (główna oś!), wówczas następuje dopasowanie do rozmiaru kontenera (zgodnie z podanymi współczynnikami)
 
-flex-basis: N px - określa początkową długość (wzdłuż głównej osi) elementu, więc jego wielkość, może być także w procentach, np. 50%, domyślnie auto -- pamiętaj, że może być modyfikowane przez grow/shrink
+flex-basis: N px - określa początkową długość (wzdłuż głównej osi) elementu, więc jego wielkość, może być wyrażona także w procentach (względem całego kontenera), np. 50%, a domyślnie wartość auto -- pamiętaj, że właściwość flex-basis może być modyfikowana przez grow/shrink
 
 flex - łączy: flex-grow, flex-shrink, flex-basis (skrót) -- sposób rekomendowany (należy zwracać uwagę na wszystkie wartości) -- więcej na dole notatki
 
-align-self - nadpisuje wyrównanie zdefiniowane w kontenerze
+align-self - określany w danym elemencie, nadpisuje wyrównanie zdefiniowane w kontenerze
 
 warto zajrzeć:
 https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
@@ -63,7 +63,7 @@ flexbox domyślnie utworzy jeden wiersz, w którym rozłoży kolejne elementy, o
 więc, w przypadku prostych bloków długich tekstów, utworzone zostaną równe kolumny mieszczące owe teksty (patrz proste przykłady z mdn docs)
 
 wrap - jakiekolwiek przepełnienie (overflow) przenoszone jest do następnej linii (wiersza/kolumny)
-pamiętaj, że domyślną wartością flex-basis jest auto, a zatem uważaj, gdy elementami flexboxa są długie bloki tekstu (wypełniają one całą szerokość - patrz przykład z mdn docs)
+pamiętaj, że domyślną wartością flex-basis jest auto, a zatem uważaj, gdy elementami flexboxa są długie bloki tekstu (wypełniają one całą szerokość - więc układ kontenera stanie się kolumnowy - patrz przykład z mdn docs)
 
 flex zachowuje się dosyć "inteligentnie"
 flex: jedna wartość
@@ -72,7 +72,7 @@ flex: jedna wartość
 flex: dwie wartości
   pierwsza wartość musi być zgodna z flex-grow
   druga wartość zgodna z <flex-shrink> -- skrót rozszerza się do <flex-grow> <flex-shrink> 0
-  druga wartość zgodna z <flex-basis> -- skrót rozszerza się do <flex-grow> 1 <flex-basis>
+  druga wartość zgodna z <flex-basis> -- skrót rozszerza się do <flex-grow> 1 <flex-basis> -- pamiętaj o jednostce, jeśli zechcesz ustawić 0 - np. 0px
 flex: trzy wartości
   <flex-grow> <flex-shrink> <flex-basis>
 flex: initial -- wartość równoważna wartościom domyślnym (flex: 0 1 auto) - czyli elementy kurczą się równomiernie, jeśli zajdzie taka potrzeba, ale nie rosną, gdy zostaje dodatkowa przestrzeń, a sam element określają parametry width i height
