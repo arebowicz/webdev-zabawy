@@ -80,3 +80,14 @@ flex: auto -- wartość równoważna z (flex: 1 1 auto) - czyli podobnie jak wy�
 flex: none -- wartość równoważna z (flex: 0 0 auto) - czyli element jest rozmiaru określonego przez parametry width i height oraz zachowuje się nieelastycznie - ani się kurczy, ani się rozszerza
 
 plus informacja na sam koniec: flexboxowe kontenery można śmiało zagnieżdżać
+
+warto przeczytać:
+https://web.dev/learn/css/flexbox/
+- porusza kwestię row/column-reverse - bo zaburzając naturalną kolejność, zmniejszamy accessibility (zmianie ulega samo wyświetlanie, nie DOM - przeglądarka po prostu renderuje elementy w odwróconej kolejności, a tab działa standardowo)
+
+rozszerzony mdn:
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout
+
+"oficjalna", naprawdę szczegółowa specyfikacja:
+https://www.w3.org/TR/css-flexbox-1/
+np. warty rozważenia img: https://www.w3.org/TR/css-flexbox-1/images/rel-vs-abs-flex.svg
