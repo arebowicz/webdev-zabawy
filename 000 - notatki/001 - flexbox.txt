@@ -45,7 +45,7 @@ flex-grow - domyślnie 0, a wartości ujemne są nieprawidłowe... określa jak 
 
 flex-shrink - domyślnie 1, a wartości ujemne są nieprawidłowe... podobnie do flex-grow, tylko że oznacza "kurczenie" elementów, bo przecież sumaryczny rozmiar wszystkich dzieci może być większy od rozmiaru kontenera (główna oś!), wówczas następuje dopasowanie do rozmiaru kontenera (zgodnie z podanymi współczynnikami)
 
-flex-basis: N px - określa początkową długość (wzdłuż głównej osi) elementu, więc jego wielkość, może być wyrażona także w procentach (względem całego kontenera), np. 50%, a domyślnie wartość auto -- pamiętaj, że właściwość flex-basis może być modyfikowana przez grow/shrink
+flex-basis: N px - określa początkową długość (wzdłuż głównej osi) elementu, więc jego wielkość, może być wyrażona także w procentach (względem całego kontenera), np. 50%, a domyślnie wartość auto -- pamiętaj, że właściwość flex-basis może być modyfikowana przez grow/shrink (uwaga: zanim element zostanie umieszczony w kontenerze, ma pewien "bazowy" rozmiar, określony zgodnie [albo z modelem pudełkowym, albo] z flex-basis, i rozmiar ten nie jest gwarantowany (tylko hipotetyczny) -- przeglądarka dokonuje zmian rozmieszczając elementy w kontenerze)
 
 flex - łączy: flex-grow, flex-shrink, flex-basis (skrót) -- sposób rekomendowany (należy zwracać uwagę na wszystkie wartości) -- więcej na dole notatki
 
