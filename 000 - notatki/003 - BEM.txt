@@ -1,0 +1,46 @@
+BEM - Block Element Modifier
+
+krótkie wprowadzenie:
+bem to css'owa metodologia, konwencja (czyli zestaw reguł...) która ma ułatwiać pracę w dużych projektach; tworząc dodatkową warstwę abstrakcji, wymaga od developerów, aby myśleli nieco inaczej o witrynie już w samej fazie projektowania; interfejs użytkownika dzielimy na bloki, czyli takie niezależne obiekty, które można wyjmować/rozmieszczać; bloki te składają się z elementów, które bez danego bloku nie mają sensu, żyją tylko w jego obrębie; mamy też modyfikatory, które służą określaniu różnych stanów wspomnianych obiektów; konwencja ta narzuca odpowiednie nazewnictwo: blok__element--modyfikator; i w samej css'owej architekturze nie korzystamy ani z identyfikatorów, ani ze znaczników, wszystko budujemy w oparciu o odpowiednio nazwane klasy
+
+pierwsze starcie:
+po pierwsze, w myśl bema (filozofia...) - strona (interfejs) składa się z komponentów (w których, oczywiście, mogą znajdować się również inne komponenty); za komponent może zostać uznane wszystko, co jest wielokrotnego użytku; więc komponent - to coś niezależnego, jak gdyby pojedynczy klocek (bądź grupa klocków)
+po drugie, bem opiera się o używanie odpowiednich nazw klas; i większość elementów tworzonego interfejsu musi otrzymać klasę
+załóżmy więc, że mamy nawigację nav:
+i tutaj - samo nav to blok, a całe wnętrze nav to komponent
+i, żeby blok stał się blokiem musimy, nadać mu nazwę zgodnie z regułami określonymi przez bem
+np. naszą nav nazwiemy menu
+i zagnieżdżenia w bemie są proste, mamy tylko jeden ich poziom (a w htmlu, przynajmniej teoretycznie, nieskończenie wiele), drzewo bemowe jest za to szerokie
+oto jak nazywamy każdy z obiektów (a właściwie obiektu klasę...) (oczywiście, konwencje camelCase i s_nake również są ok, tak jak m-yślnik): menu__logo, menu__logo-image, menu__logo-name, menu__item-list, menu__item, menu__link, menu__icon
+kod więc rośnie, na pierwszy rzut oka mniej przejrzysty
+ale w samym css - do każdego elementu, najczęściej, odwołujemy się precyzyjnie (poprzez nazwy klas), bez reguł kaskadowości, zagnieżdżeń, znaczników
+i modyfikator - dodatkowa klasa, która pozwala nam zmienić stan/właściwości danego bloku/elementu, np. menu--vertical (jeden komponent występujący w różnych formach), czy menu__item--active - i w cssowych regułach modyfikatorów nie przepisujemy wszystkich właściwości, tylko to, co jest modyfikowane
+
+treść notatki:
+oprocz tego, że bem jest popularną konwencją nazywania klas węzłów (obiektów/znaczników) html, bem określa także sposób tworzenia selektorów css
+a więc, w kilku słowach: bem to myślenie o interfejsie (stronie) jako o zbiorze niezależnych komponentów + konwencja określająca i sposób nazywania elementów html i tworzenia selektorów css
+cechy bem:
+ modułowość - strukturę strony budujemy z "klocków"
+ architektura css oparta o klasy, minimalna liczba zagnieżdżeń, marginalne wykorzystanie reguł kaskadowości
+ oparty o trzy typy obiektów
+ konwencja ta, w pewnych sytuacjach, pozostawia twórcom pewną dowolność
+dobrze sprawdza się w dużych projektach, gdzie kluczowa jest organizacja kodu (+ kod staje się skalowalny i wielokrotnego użytku)
+Block - często określany też komponentem. Niezależny element interfejsu
+Element - część komponentu, która jest zależna od bloku i nie występuje poza blokiem
+Modifier - niestandardowy blok lub element (rozszerzony/zmieniony); modyfikator nie występuje samodzielnie
+i, co istotne: blok/element powstaje, gdy nadamy mu klasę wg. reguł bem, dlatego jest to tylko konwencja, sposób myślenia o interfejsie (i sposób nazywania), bo samo nadanie klasy nie powoduje, że poza naszym myśleniem, dany obiekt zyskuje jakieś supermoce
+blok - np. stopka, przycisk, menu, formluarz, artykuł, lista artykułów, logo, wyszukiwarka, jakiś kontener z czymś, itp - więc samodzielna część interfejsu; technicznie: węzeł html z klasą z nazwą bloku; z punktu widzenia html bloki można w sobie zagnieżdżać (np. przycisk w formularzu); to developer decyduje, czy dany obiekt uznać za blok (czy za element komponentu); bloki są hierarchicznie równe; może być użyty wielokrotnie i niezależnie; nazwa bloku powinna być unikalna
+element - np. pole formularza, grafika w slajderze, tytuł w artykule, pozycja w menu, adres w stopce, itp - nie występuje bez bloku, poza nim; jest jego częścią; wobec znaczeniowego powiązania bloku-elementu nazwa bloku występuje w nazwie klasy elementu np. registration-form__input-type-number, newsletter-form__input-user-name; nazwa elementu musi być unikalna w obrębie bloku, np. title i w headerze i w artykule (header__title i article__title) - nie ma tu żadnego problemu, są to dwie różne klasy, które precyzyjnie określają o jaki element nam chodzi; więc nazwa bloku to taka jakby przestrzeń nazw (kod w obrębie bloku staje się niezależny)
+modyfikator - gdy pewien blok/element występuje w wersji innej niż "standardowa", używamy modyfikatora, czyli w praktyce dodajemy dodatkową klasę do elementu html; dodajemy/zmieniamy podstawowe właściwości; nazwa powinna wskazywać na stan - do czego jest, co robi, jak wpływa na wyświetlenie; jako klasa, modyfikator nigdy nie występuje samodzielnie, użwany jest zawsze w połączeniu z klasą modyfikowanego bloku/elementu, np. menu__link menu__link--important; do bloku/elementu może być przypisanych wiele modyfikatorów, np. search search--users search--large; ponieważ reprezentuje modyfikację - w regułach css nie dublujemy właściwości, które nie są zmieniane/rozszerzane, tylko dodajemy nowe/modyfikujemy istniejące
+bem to nie beem, albo beeem, więc mamy jedynie dwa podkreślenia, nie więcej, a zatem bem komunikuje tylko, czy dany element jest elementem komponentu i nie komunikuje struktury zagnieżdżeń; więc nie: menu__list__item__link, tylko menu__link; choć niekiedy można pokazać zagnieżdżenie poprzez pojedynczy myślnik (-)
+identyfikatory odpadają, bo jedno id na stronę, a bem jest, co do zasady, modułowy
+htmlowe tagi/znaczniki też odpadają, bo wskazywanie, o który tag chodzi, wymaga budowania zagnieżdzonych selektorów, co może czynić css mniej czytelnym i mniej elastycznym (+ zmiana z np. h1 na h2 wymusza zmiany również w css)
+selektory kombinowane też nie bo np. dwie klasy nadpisują jedną (klasyfikacja medalowa)
+choć niekiedy zagnieżdżenie może okazać się potrzebne np. .vertical-menu--theme-gray .vertical-menu__items {}
+blok można stworzyć też dla wrappera np. <body class=”page”> i potem <nav class=”menu page__menu”>
+i niekiedy blok może posłużyć do zgrupowania pewnych właściwości np. tutaj blok text (np. wielkość fonta/interlinii czy coś): <address class=”footer__address text”> <article=”article text”>
+ważne: może się zdażyć, że jeden obiekt będzie jednocześnie i blokiem i elementem, np.:
+ przycisk jako element komponentu - całkowicie odmienny, dedykowany headerowi, np. "header__button"
+ przycisk jako komponent + modyfikator - gdy wykorzystywany wielokrotnie w różnych miejscach interfejsu, a dodatkowo właściwości bardzo podobne w każdym miejscu, np. "button button--header"
+ mix - "button header__button"
+ponadto, niekiedy może istnieć dylemat - stworzyć dwa komponenty czy jeden komponent z dwoma modyfikatorami: menu-horizontal i menu-vertical vs menu menu--horizontal i menu menu--vertical (pamiętaj o DRY - don't repeat yourself)
