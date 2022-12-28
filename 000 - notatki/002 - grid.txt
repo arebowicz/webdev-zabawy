@@ -1,0 +1,102 @@
+z początku planowałem stworzyć notatkę dogłębną i wyczerpującą, z czasem jednak odszedłem od tego pomysłu
+inspiracją były i kurs z udemy i m. in. poniższy dokument:
+https://www.w3.org/TR/css-grid-1/
+
+grid - oparty o dwuwymiarową siatkę (kolumny i wiersze) układ - mechanizm, technologia (w porównaniu do poprzedników) rewolucyjna (wcześniejsze sposoby konstruowania layoutów miały wiele ograniczeń)
+w gridzie, dzieci kontenera, mogą być pozycjonowane w arbitralnie (dowolnie) wybranych slotach o rozmiarze elastycznym bądź stałym
+świetnie uzupełnia się z flexboxem, który jest narzędziem jednokierunkowym (oczywiście z pewnym odstępstwem)
+warto odnotować: na chwilę obecną (koniec 2022) grid pokrywa o nieco ponad 2% mniej przeglądarek niż flexbox
+przypominajka: css nadaje wygląd strukturze (opisuje jak renderować htmla), a sam grid zwiększa separację stylu od treści
+ponadto, grid pozwala (sprawnie, łatwo) dostosować układ do dostępnego miejsca (przecież kontener [rozmiar okna] może się kurczyć, albo rozszerzać)
+
+przykładowe użycie:
+zaczynamy od zdefiniowania kontenera właściwością:
+display: grid
+oraz określenia liczby kolumn i wierszy:
+grid-template-columns: ...
+grid-template-rows: ...
+po czym umiejscawiamy bezpośrednich potomków (dzieci) kontenera w owej siatce za pomocą:
+grid-column: ...
+grid-row: ...
+(dlatego źródłowa kolejność elementów "nie ma znaczenia" - i można, z poziomu CSS, łatwo manipulować umiejscowieniem elementów w siatce, a zatem, niewielkim nakładem pracy, rearanżować układ witryny w zależności od ekranu, na którym wyświetlana jest strona)
+
+krótki przegląd:
+- rozmiar torów może być stały, elastyczny, lub zależny od treści (o minmax później)
+(wobec wspomnianej elastyczności grid potrafi świetnie sprawdzić się w kwestii responsywności w połączeniu z media queries); przy czym: struktura siatki nie musi zajmować całej powierzchni kontenera
+- elementy umieszczamy w siatce jawnie za pomocą numerów (i dodatnich, i ujemnych) linii, bądź nazw linii, bądź nazw pól; albo autorozmieszczanie (zgodnie z przyjętymi regułami, które jednak można dopasowywać); warto odnotować: strukturę siatki można wymusić wskazując pozycję elementu; ponadto, domyślnie element zajmuje jedną komórkę
+- automatyczne dodawanie wierszy lub kolumn w celu uwzględnienia nadmiarowej zawartości
+- duże możliwości wyrównywania
+- możliwość nakładania treści i kontrolowania warstw za pomocą z-index
+
+podstawowe pojęcia:
+w układzie grid, zawartość kontenera rozmieszczana jest w siatce
+owa siatka - zbiór przecinających się pionowych (oś blokowa) i poziomych (oś inlineowa) linii, które dzielą przestrzeń kontenera na obszary, w które umieszczane są elementy
+kontener - bezpośredni rodzic wszystkich elementów; definiujemy go właściwością "display: grid"; pojemnik na tworzoną siatkę
+element - bezpośredni potomek (dziecko) kontenera, umieszczany w siatce, jego pozycja w gridzie określona jest przez linie
+linia - tworzy strukturę siatki, linie są pionowe i poziome, numerowane od 1, linie znajdują się po obydwu stronach każdego wiersza/kolumny, można odwoływać się do nich także po zdefiniowanych przez autora nazwach; są, w zasadzie, bytami wirtualnymi (bez wielkości); ponadto, liczone od strony przeciwnej (-1, -2, ...)
+komórka - pojedyncza, najmniejsza "jednostka" siatki, właściwie odstęp pomiędzy dwoma sąsiadującymi liniami siatki i rzędów i kolumn; można ją nazywać; w jednej komórce może znaleźć się więcej niż jeden element siatki i z drugiej strony, nie w każdej komórce musi być element
+tor, ścieżka - kolumna lub wiersz, czyli przestrzeń pomiędzy dwiema sąsiednimi liniami siatki
+pole, powierzchnia - prostokątny obszar złożony z dowolnej liczby komórek siatki, układają się w nim elementy grida (jeden lub więcej); obejmuje przerwy (gap)
+gap - nie ma ich na krawędziach kontenera, są to odstępy pomiędzy wierszami i kolumnami; mogą wpływać na wielkość całej siatki; to jakby marginesy
+
+umieszczanie elementów w siatce:
+jawnie - pierwszeństwo ma jawna deklaracja (elementowi przypisujemy daną powierzchnię siatki)
+niejawnie - jeśli nie zadeklarujemy gdzie umieścić elementy, grid sobie poradzi, stosując własne reguły, w skrócie, domyślnie, najpierw wypełni elementami wiersz (zgodnie z kolejnością ich występowania w htmlu i po jednym elemencie na komórkę), a potem, gdy nie będzie w wierszu miejsca, przejdzie do kolejnego, ewentualnie takowy (kolejny) stworzy
+pamiętaj, że rozmieszczanie elementów w siatce może tworzyć strukturę siatki (choć, jak mniemam, zazwyczaj lepiej tego unikać)
++ pamiętaj o istnieniu wartości dense, np "grid-auto-flow: row dense"
++ pamiętaj że do dyspozycji są: "span", ujemne numery linii i przy określaniu zapisu skróconego grid-row/grid-column możesz podać tylko jeden numer linii (wtedy domyślnie element "rozepnie się" na rozmiar jednej komórki - więc właściwie -end będzie miało wartość auto, a zatem, w praktyce, span 1)
++ pamiętaj, że w przypadku grid-auto-flow: column najpierw wypełniana jest (elementami) pierwsza kolumna, dopiero potem druga, i tak dalej
+
+tworzenie struktury:
+ustanowienie kontenera siatki bez jawnej definicji struktury siatki oznacza, że struktura dla elementów tworzona będzie automatycznie; domyślnie - grid-auto-flow: row - a zatem każdy kolejny element będzie w nowym wierszu; wiersze te rozciągnięte będą na całą szerokość kontenera, chociaż grid-auto-rows i grid-auto-columns, domyślnie, ustawione są na auto ("przyjmij wielkość taką, jaka jest potrzebna na zawartość"), jednak za "rozciąganie" kolumn i wierszy odpowiadają inne właściwości - justify-content i align-content
+
+krótkie zebranie właściwości kontenera (rodzica):
+display: grid | inline-grid
+grid-template-columns: ... - liczba kolumn i ich wielkości
+grid-template-rows: ... - liczba wierszy i ich wielkości
+w dwóch powyższych właściwościach, listę wartości (...) rozdzielamy spacjami
+i tutaj drobna ciekawostka: w przypadku procentów, gdy rozpatrzymy kolumny, więc np. grid-template-columns: repeat(4, 25%), każda z kolumn będzie miała po 25% szerokości kontenera, bo procent odnosi się właśnie do wielkości kontenera, natomiast w przypadku wysokości przeglądarki zachowają się różnie - niech np. grid-template-rows: 1500% -- w firefoxie, gdy wysokość nie jest jawnie zdefiniowana, jej domyślna wartość wynosi 0, więc 15*0 = 0, a w chrome ta wartość zostanie przeliczona, będzie 15*min-content (czy tam auto?) -- między innymi z tej przyczyny użycie fraction jest lepszym pomysłem (kolejną jest fakt, że łatwo wyjść z rozmiarem siatki poza rozmiar kontenera, np. 60% + 60% > 100%) 
+grid-template-areas - nazwy komórek
+grid-auto-columns - wielkość automatycznie tworzonych kolumn (auto)
+grid-auto-rows - wielkość automatycznie tworzonych wierszy (auto)
+grid-auto-flow - w jaki sposób automatycznie będą dodawane elementy siatki (i jak będzie tworzona automatyczna siatka) - domyślnie row (można też użyć column); oprócz nich można użyć wartości dense
+grid-template - skrót: grid-template-rows / grid-template-columns
+grid - skrót: łączy grid-areas, grid-template-rows i grid-template-columns
+column-gap (grid-column-gap) - pamiętaj, że elementy o powierzchni większej niż jedna komórka mogą nachodzić na te odstępy
+row-gap (grid-row-gap)
+gap (grid-gap)
+justify-content - jak będą zachowywać się kolumny gdy będzie wolna przestrzeń w kontenerze (szerokość) np. left, right, center, start, end, space-between, space-around, space-evenly i stretch
+właściwość domyślnie ustawiona na stretch (rozciągnij), czyli elementy o wielkości auto, jeśli w kontenerze będzie wolna przestrzeń, zostaną rozciągnięte, chyba, że któraś z kolumn będzie określona jednostką frakcji, to wtedy nie będzie tej wolnej przestrzeni (przydzielanie wielkości poprzedza rozciąganie za które odpowiedzialna jest właściwość justify-content -- i na auto w tym zakresie chyba lepiej nie polegać) 
+align-content - jak będą zachowywać się wiersze gdy będzie wolna przestrzeń w kontenerze (wysokość); wartości jak w justify-content, ale bez left i right
+place-content - skrót - możemy napisać jednocześnie wartości dla align-content i justify-content; najpierw podajemy align-content a potem justify-content tj. place-content: align-content justify-content
+justify-items - zachowanie elementu wewnątrz komórki w poziomie (domyślnie stretch - element rozciąga się na cały swój obszar)
+align-items - zachowanie elementu wewnątrz komórki w pionie (domyślnie stretch - j/w)
+place-items - dwie powyższe właściwości razem (skrót)
+
+zebranie właściwości elementu (dziecka):
+grid-column-start - od której linii pionowej zaczyna się powierzchnia danego elementu (definiujemy kolumnę)
+grid-column-end - na której linii pionowej kończy się powierzchnia danego elementu (definiujemy kolumnę)
+grid-row-start - na której linii poziome zaczyna się powierzchnia danego elementu (definiujemy wiersz)
+grid-row-end - na której linii poziome kończy  się powierzchnia danego elementu (definiujemy wiersz)
+grid-column - wersja skrócona dla grid-column-start i grid-column-end np. grid-column: 2/6
+grid-row - wersja skrócona dla grid-row-start i grid-row-end np. grid-row: 2/6
+grid-area - wersja skrócona dla wszystkich czterech właściwości: grid-row-start / grid-column-start / grid-row-end / grid-column-end, w szczególności może być grid-area: nazwa-powierzchni
+justify-self 
+align-self 
+place-self
+order - m. in. kolejność elementów, których pozycja generowana jest automatycznie (niejawnie)
+z-index - jeśli elementy nachodzą na siebie w komórce to domyślnie widoczny będzie ten, który jest "później" w htmlu, ale możemy zmienić to za pomocą z-index 
+
+dodatkowo:
+fr
+span
+dense
+repeat()
+minmax() - możliwość określenia minimalnej i maksymalnej wielkości kolumny/wiersza; istotna uwaga: frakcje wyliczane są dopiero na końcu, i właśnie przed frakcją swoją wielkość otrzyma minmax()
+dwie poniższe właściwości są do wykorzystania z funkcją repeat, jako alternatywa dla jawnego wskazania liczby wierszy/kolumn; często łączymy je z minmax
+auto-fit - np. repeat(auto-fit, minmax(50px, 1fr)) - tworzy tyle kolumn ile elementów ma do rozdysponowania
+auto-fill - np. repeat(auto-fill, minmax(55px, 1fr)) - tworzy maksymalną liczbę wierszy/kolumn jaka jest możliwa (bez względu na ilość elementów, które rozmieszczamy w siatce), a więc niekoniecznie cała siatka musi zostać zajęta, zostanie ewentualnie tylko taka przestrzeń na której już ostatnia definiowana kolumna się nie zmieści
+min-content - w skrócie najdłuższe słowo z tekstu
+max-content - w skrócie wszystkie słowa z tekstu
+
+1 fr - gridowa jednostka (oznaczająca frakcję - czyli część) która wykorzystuje całe nieprzypisane, pozostałe miejsce (w skrócie: po odjęciu od szerokości/wysokości kontenera "bazowych" rozmiarów nieelastycznych kolumn/rzędów [+ min-content dla kolumn/rzędów określonych frakcjami]), a zatem określa elastyczny rozmiar; tory wykorzystujące tę jednostkę nazywamy elastycznymi; może być wykorzystywana wielokrotnie
