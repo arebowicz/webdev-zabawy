@@ -1,0 +1,240 @@
+sass w skrócie (kilka ogólnych, wprowadzających linii):
+
+- są to dodatkowe "supermoce" dla cssa (dodaje funkcje, których wielu osobom brakuje) -- więc, zwyczajnie, rozszerzenie cssa
+- preprocesor css - poprzedza powstanie właściwego cssa
+- powszechnie używana technologia w większych projektach
+- dodatkowa składnia + elementy programistyczne, które pomagają w szybszym pisaniu/organizacji css
+nie jest więc alternatywnym rozwiązaniem dla css, to "tylko" metajęzyk/rozszerzenie
+ponadto, nie rozpoznaje go przeglądarka, by zamienić sass na css potrzebny jest kompilator
+plus dobrze komponuje się z bemem
+
+mamy dwie składnie sassa: z wcięciami (bez nawiasów klamrowych oraz średników -- koniec linii jest średnikiem, a odpowiednie wcięcie definiuje blok kodu) i scss
+do składni z wcięciami - w vscode konieczny dodatek o nazwie sass (Indented Sass syntax Highlighting, Autocomplete & Formatter)
+ja sam będę korzystał ze składni scss
+pomiędzy tymi dwiema składniami są drobne różnice
+
+pamiętaj, że kompilator z vscode możesz skonfigurować, aby, na przykład, ustawić format pliku wynikowego (scss -> css) na "compressed" i nazwać go ".min.css"
+
+do debugowania, czy zabaw, np. kompilacji składni z wcięciami do składni scss może przydać się narzędzie: https://www.sassmeister.com/
+
+plik map potrzebny jest do łapania, wychwytywania błędów nie w pliku .css, a w pliku .scss - abyśmy wiedzieli, w której linii, w .scss, jest dana właściwość (a debugowanie, kolejno: sam edytor tekstu, kompilator sassa i, wreszcie, przeglądarka)
+
+pracując z sassem pracujemy, co dość oczywiste, z wieloma plikami (np. style komponentów, style bazowe, style konfiguracyjne) -- i podczas importowania pomniejszych plików do pliku głównego, ważna jest odpowiednia kolejność, w np. styles.scss czy main.scss najpierw umieścimy variables.scss, potem base.scss, a później header.scss, itd (kolejność ma znaczenie) - więc uzyskamy jeden plik wynikowy - i pamiętaj, żeby pracować na tzw. "plikach cząstkowych" - ich nazwa zaczyna się od jednego podkreślenia (_), a kompilator ich nie kompiluje (nie uwzględnia), więc nazywaj wszystkie te pliki jako _variables.scss, _base.scss, itd
+
+pisząc kod w sassie korzystamy z zagnieżdżania reguł, to znaczy, zamiast napisać: header h1 { ... }, napiszemy: header { h1 {...} }
+po kliknięciu "watch sass" - dodatek z vscode obserwuje zmiany na plikach i na bieżąco wykonuje kompilacje
+
+sass na poważnie (szczegóły szczególiki):
+
+sass opiera się na css i zasady tworzenia podstawowych reguł są tu takie same
+w uproszczeniu (przypominajka), definiujemy: selektor i blok par właściwość-wartość
+
+kompilacja - proces przekształcenia kodu jednego języka (zazwyczaj o wysokiej abstrakcji) na kod innego języka (np. język maszynowy)
+transpilacja - różni się od kompilacji tym, że dokonujemy zmiany jednej wersji danego języka w inną wersję tego samego języka (np. ecmascript 6 -> ecmascript 5), albo jeden język zamieniamy na inny, ale o tym samym poziomie abstrakcji
+
+zagnieżdżenia w sass - umieszczamy kolejne reguły wewnątrz innej reguły
+dzięki zagnieżdżeniom: przejrzystość + szybkość pisania kodu
+w oparciu o zagnieżdżania kompilator tworzy złożone selektory
+oczywiście możliwe jest używanie kombinatorów w zagnieżdżeniach -- dodanie kombinatora w elemencie nadrzędnym spowoduje, że otrzymają go wszystkie zagnieżdżone selektory, ale można też dodać kombinator tylko do konkretnego zagnieżdżonego selektora, czyli np.: header > { h1 { ... } } oraz header { > h1 { ... } }
+niby nie ma limitu zagnieżdżeń ale pamiętaj o przejrzystości, w szczególności, w przypadku bem, zagnieżdżenia nie będą głębokie
+ampersand oznacza selektor rodzica, np.: .text { &.red { ... } } zostanie skompilowane na .text.red { ... } ("weź" element który ma jednocześnie dwie klasy), a bardziej praktyczne z np. :hover -- i można sobie wyobrazić, że ampersand jest zawsze, tylko domyślnie jest po nim spacja
+odwzorowywanie całej struktury htmla w stylach ma ten minus, że jeżeli coś zmienimy w htmlu, czy choćby dodamy jakiś element do htmla, to musimy wtedy dokonywać stosownych zmian w zagnieżdżeniach -- np. main ul li a - to rozwiązanie może nie być pożądanym; bardzo dobrym pomysłem jest wykorzystanie zagnieżdżeń dla konwencji bem
+
+w przypadku bem, sass działa przepięknie, bo selektor rodzica (&) wykorzystujemy jako prefiks nowego selektora -- mamy przecież nazwę komponentu, która jest częścią klasy elementu, np.:
+.menu { &__list { ... &--horizontal { ... } } &__item { ... &--is-open { ... } } }
+i powstają nam takie ładne "paczki", kod jest zgrupowany, modułowy -- bemowe komponenty
+a przy bardziej rozbudowanych komponentach, można, w obrębie jednego pliku, jakby modułu, który nazwiemy np. menu (plik _cząstkowy), tworzyć reguły dla poszczególnych elementów, np.: .menu__item { ... } -- zyskujemy przejrzystość, nie ma za dużo zagnieżdżeń
+pamiętaj, że kolejność, w css, ma znaczenie, szczególnie, gdy nie korzystamy, jak w bemie, z reguł kaskadowości
+plus popatrz na ten może nieco skomplikowany przykład (wygrywa w klasyfikacji medalowej...):
+.menu__item { 
+  ...
+  .menu--theme-oldschool & { 
+    &:hover { 
+      ...
+    }
+  }
+}
+ewentualnie tak:
+.menu__item {
+  ...
+  &:hover {
+    ...
+    .menu--theme-oldschool & {
+      ...
+    }
+  }
+}
+
+zmienne definiujemy za pomocą znaku dolara ($) i nazwy, zazwyczaj na początku pliku albo w ogóle w osobnym pliku
+$nazwa: wartość;
+wartości zmiennej możemy potem używać wielokrotnie w kodzie
+by użyć zmiennej podajemy jej nazwę poprzedzoną znakiem dolara
+w trakcie kompilacji, kompilator podstawi pod wystąpienia zmiennych wartości i w pliku css nie będzie już tej zmiennej z sass, tylko odpowiednia wartość
+zmiennych używamy, gdy z danej wartości korzystamy wielokrotnie (zmiana w jednym miejscu -> zmiana w wielu miejscach)
+do zmiennej można przypisać różne typy wartości
+i na zmiennych możemy wykonywać te same działania (funkcje, operacje matematyczne) co bezpośrednio na wartościach, bo pracując na zmiennej pracujemy de facto na wartościach
+nazywanie zmiennych: myślniki, podkreślenia, litery, cyfry (ale nazwa nie może zaczynać się od cyfry); nazwę zmiennej warto rozpocząć od elementu, którego dotyczy ($button-bg-color, $page-font-alternate), bądź nazwy właściwości, do której się odnosi ($color-text-large, $padding-size-default)
+lecz czasem możemy chcieć pracować na zmiennych "natywnych" css, już po wyrenderowaniu witryny, żeby np. po kliknięciu jakiegoś przycisku na stronie, przetworzone zostały jakieś zmienne -- wtedy definicje zmiennych umieszczamy w pseudoelemencie root (najwyższy element w DOM, kieruje na html), :root { --main-bgc: #333 } (już nie znak dolara tylko dwa myślniki), a użycie: var(--main-bgc) -- i zawsze później możemy pracować z tą zmienną, zmieniać ją, itp
+oczywiście kolejność ma znaczenie (najpierw definicja zmiennej, potem jej użycie)
+zasięg zmiennych: globalny (dostępna w każdym fragmencie naszego kodu) i lokalny (lokalny gdy chcemy by nasze komponenty, gdy myślimy w kategoriach bem, były faktycznie niezależne i by łatwo było wklejać je później do innych projektów; zmienna lokalna nie jest dostępna poza zagnieżdżeniem)
+ponadto, zmienna lokalna nadpisuje (ale tylko w swoim zasięgu) zmienną globalną o tej samej nazwie
+plus zmiennej lokalnej możemy nadać flagę !global i staje się ona zmienną globalną
+typy wartości zmiennych: liczby (bez i z jednostkami), łańcuch znaków, kolory, wartości logiczne, null, listy, mapy
+stringi - nie muszą być w cudzysłowie (lub apostrofie), ale to dobra praktyka; jeżeli nie są, to sztuczka: "" + $font
+liczby - jeżeli do liczby nie posiadającej jednostki chcesz dodać jednostkę to pomnóż tę liczbę przez ową jednostkę, np. 20 * 1px; ponadto zapis 20 + px to konkatenacja stringów i 20px będzie stringiem
+kolory - pracujemy z nimi poprzez odpowiednie funkcje kolorów
+lista - sekwencja wartości oddzielana od siebie przecinkiem lub spacją, do elementu listy odnosimy się poprzez indeks (za pomocą funkcji sass), przy czym: indeksowanie w sass od jedynki!; listy można zagnieżdżać
+mapa, przykład:
+$fonts: (
+  main: 'roboto',
+  second: 'arial',
+  theme-old: 'verdana'
+);
+funkcja pobierająca wartość z mapy: map-get($nazwa-mapy, nazwa-klucza), np. map-get($fonts, second)
+funkcja ta wykona się w procesie kompilacji
+ponadto, mamy funkcję type-of($zmienna) -- może mieć sens w instrukcjach warunkowych
+
+komentarze:
+/* */ - znane z css, wielowierszowe, widoczne po kompilacji (chyba że do pliku skompresowanego)
+// - jednowierszowe, niewidoczne po kompilacji
+/*! */ - widoczne nawet po kompilacji do formatu skompresowanego
+kod w moim odczuciu powinien być samokomentujący, dlatego nie przesadzam z komentarzami
+
+dzielenie i łączenie plików w sassie jest naprawdę proste, kod dzielimy na mniejsze (tematyczne), niezależne części, a za sprawą instrukcji @import możemy finalnie połączyć cały nasz kod w jeden plik
+instrukcja @import pozwala dodać zawartość jednego arkusza w innym arkuszu; w samej chwili kompilacji oba pliki są wtedy łączone
+pliki cząstkowe rozpoczynają się znakiem _ -- informujemy w ten sposób kompilator, aby bezpośrednio nie kompilował tego pliku, i najczęściej jedynym plikiem bez znaku podkreślenia będzie main.scss czy styles.scss, który będzie łączył pozostałe pliki
+kolejność importów ma oczywiście znaczenie - i reguły kaskadowośi i dostępność zmiennych/domieszek/funkcji/itd
+są trzy różne sposoby zapisu importu: @import 'base' (chyba najlepszy sposób); @import '_base.scss' (cała nazwa z rozszerzeniem); @import '_base' (sama nazwa);
+ponadto, importy można ograniczać do reguł (i jej zagnieżdżeń) -- więc nie musimy wykonywać importów "globalnie", na początku pliku
+do tego pamiętaj, że w samym css też jest @import, ale (chyba) raczej rzadko się z niego korzysta, bo spowalnia ładowanie witryny -- w przypadku sassa mamy (zazwyczaj) jeden (większy) plik
+
+architektura: poszczególne elementy umieszczamy w osobnych plikach cząstkowych: konfiguracja, zmienne/domieszki (przy czym jest tu pewna dowolność, nie wszystkie zmienne muszą być w jednym pliku, czasem możemy umieszczać zmienne w komponentach, itp) oraz komponenty; przejrzysty kod wielokrotnego użytku
+przykładowa architektura aplikacji:
+main.scss - importowanie pozostałych plików
+/base - podstawowe, jak normalize/reset, layout, stylowanie podstawowych elementów, animacje
+/utils - użytkowe, więc te, które nie są bezpośrednio kompilowane do css, jak zmienne, domieszki, funkcje
+/components - komponenty naszej aplikacji (nawet jak nie korzystamy z bema to takie myślenie ma sens)
+i inne (/libs, /themes, /layouts, itp)
+
+domieszki (mixins)
+sposób na pisanie kodu wielokrotnego użytku, jesteśmy w stanie przypisać ten kod do identyfikatora (nazwa domieszki)
+dwie instrukcje: @mixin (definiowanie) i @include (użycie)
+w wersji podstawowej, bez parametrów, po prostu: @mixin nazwa { ... } i @include nazwa
+w wersji rozszerzonej: @mixin nazwa($parametry) { ... } i @include nazwa(argumenty)
+najprościej ujmując: @include powoduje umieszczenie (w danym miejscu) zawartości zdefiniowanej w bloku @mixin
+domieszka, oprócz właściwości css, może zawierać: zmienne, inne domieszki, czy reguły (w tym reguły zagnieżdżone)
+po co? zmiana w jednym miejscu, w domieszce -> zmiana wszędzie (gdzie wykorzystywana jest domieszka); DRY po stronie sass; kod umieszczany w domieszce to zazwyczaj zbiór określający jakieś cechy wyglądu czy funkcji które są powtarzane (np. clearfixy, prefixy)
+w nazwach domieszki możesz używać myślników do oddzielania od siebie słów
+ponadto, w domieszce (a właściwie w parametrach domieszki) można używać domyślnych wartości: @mixin box-margin($vertical: 20px, $horizontal: 40px) { ... }
+null - dana właściwość się nie kompiluje, sass po prostu pomija ją
+np: @mixin box-margin($vertical: null, $horizontal: $vertical) { margin: $vertical $horizontal; } -- jak wywołamy @include box-margin() to, jak już pisałem, wobec nulla, margin z domieszki zostanie pominięty
+i, jak wskazałem w przykładzie wyżej, w domyślnych wartościach można używać zmiennych
+instrukcja @content: używając domieszki, oprócz argumentów, możemy przekazać dodatkowe właściwości, które mają być umieszczone wraz z tymi zadeklarowanymi, przykład:
+@mixin title($size: 2rem) {
+  font-size: $size;
+  @content;
+}
+h1 {
+  @include title(2.2rem) {
+    line-height: 150%;
+  }
+}
+po kompilacji otrzymamy
+h1 {
+  font-size: 2.2rem;
+  line-height: 150%;
+}
+więc: w deklaracji umieszczamy @content, a przy umieszczeniu domieszki przekazujemy właściwości (pomiędzy nawiasami klamrowymi)
+domieszki przydatne są, gdy jakaś grupa właściwości jest często powtarzana; lepiej nie tworzyć zbyt rozległych domieszek (żeby były uniwersalne); i umieszczaj je w osobnym pliku cząstkowym
+
+rozszerzenia (dziedziczenie) w sass:
+instrukcja @extend - rozbudowuje regułę o kolejne selektory (czyli drugi selektor będzie miał właściwości tego pierwszego -- innymi słowy, do pierwszego selektora dodajemy drugi)
+określenie dziedziczenie nie jest może najtrafniejsze
+na pierwszy rzut oka działanie @extend może wydać się zaskakujące... spójrzmy:
+.text { ... }
+.footer__copyright {
+  @extend .text;
+  font-size: 18px;
+}
+po kompilacji:
+.text, .footer__copyright { ... }
+.footer__copyright {
+  font-size: 18px;
+}
+czyli: po napotkaniu instrukcji extend - kompilatorze, dodaj bieżący selektor do każdej reguły w której jest użyty selektor ...
+a skoro selektor dodawany jest do wszystkich reguł, może być to, szczególnie w dużych projektach, problematyczne
+domieszki vs rozszerzenia: domieszka wstrzykuje kod domieszki w miejscu, w którym jest użyta (generuje dodatkowy kod css - powtórzenia); instrukcja @extend rozszerza każdą regułę zawierającą wskazany selektor o inny selektor (po kompilacji w css nie powiela właściwości)
+zasady @extend: miejsce umieszczenia @extend w regule nie ma znaczenia; po napisaniu @extend coś - coś może pojawić się "później" w kodzie, nie ma problemu, kompilator sobie z tym poradzi
+selektor zastępczy (też cicha klasa, placeholder): symbol procentu (%) na początku; selektor wirtualny, tworzy wirtualną regułę, do której można dodawać (poprzez @extend) kolejne elementy; selektor zastępczy sam w sobie nie jest kompilowany (więc jeśli nie zostanie dodany do niego inny selektor za pomocą @extend to z punktu widzenia css ten selektor zastępczy nie istnieje); świetnie sprawdza się jako baza do rozszerzeń
+%flex-list { ... } i potem np. ul { @extend %flex-list ... }
+domieszki czy extend? wedle uznania
+
+w sass możemy wykonywać obliczenia, ale pamiętaj, że kompilacja następuje przed renderowaniem strony, więc obliczenie np. "10vh + 20px" jest niewykonywalne (przed wyświetleniem strony w przeglądarce wartość vh jest nieznana), w takiej sytuacji musimy skorzystać z funkcji calc, którą dostarcza sam css, calc(10vh + 20px) - kompilacja nic tutaj nie zmieni i w takiej wersji ten kod znajdzie się w przeglądarce
+pamiętaj o spacji pomiędzy znakami, np. '120px -5" kompilator potraktuje jako listę dwóch wartości! a nie działanie
+w przypadku mnożenia i dzielenia, np 20px * 1.2 nie dodajemy jednostki przy drugim operandzie, aby nie uzyskać px^2
+
+interpolacja - #{$zmienna}
+dzięki interpolacji możemy wykorzystywać zmienne w innych miejscach kodu, niż oczekiwana właściwość -- na przykład: niech $class-large-font: 'xxl'; oraz p.#{$class-large-font} { ... }, po kompilacji mamy p.xxl { ... }
+
+funkcje wbudowane:
+darken i lighten -- do pracy z kolorami, np. color: darken($font-color, 25%);
+mix - przyjmuje dwa kolory i generuje połączenie tych dwóch kolorów
+
+instrukcja warunkowa @if - generuje kod tylko po spełnieniu warunku, np:
+@if ($box-width < 200) {
+  ...
+}
+@else {
+  ...
+}
+warto wiedzieć: null to false
+mamy też: @else if
+a warunki w instrukcjach warunkowych mogą być złożone - operatory logiczne - and, or
+oczywiście, wszystkie instrukcje warunkowe ogarnia sam kompilator, więc do cssa trafiają odpowiednie bloki właściwości podane po spełnionym warunku
+
+co więcej, sass oferuje jeszcze jedną, ważną konstrukcję programistyczną - funkcję
+zadaniem funkcji jest przetworzyć dane wejściowe i zwrócić wartość (która zostanie użyta jako wartość właściwości)
+@function nazwa-funkcji($parametr1, $parametr2) {
+  ...
+  @return zwracana-wartość;
+}
+oczywiście, jak w przypadku domieszek, funkcje obsługują wartości domyślne parametrów
+ponadto, "@return null;" przypisze do właściwości nulla, a wtedy nie zostanie ona przekazana do css
+
+media queries w sass
+zagnieżdżanie:
+.menu__item {
+  ...
+  @media (min-width: 640px) {
+    // właściwości
+  }
+}
+zostanie skompilowane do
+.menu__item {
+  ...
+}
+@media (min-width: 640px) {
+  .menu__item {
+    // właściwości
+  }
+}
+breakpoints (rozdzielczości "kluczowe"):
+tworzymy mapę do której przyporządkowujemy wartości, np:
+$breakpoints: (
+  xsmall: (min-width: 460px),
+  small: (min-width: 640px),
+  ...
+)
+definicja domieszki do zapytań o media:
+@mixin mq($breakpoint) {
+  $size: map-get($breakpoints, $breakpoint);
+  @if ($size) {         // map-get zwraca null gdy nie odnajdzie danego klucza
+    @media #{$size} {   // interpolacja - używamy zawartości zmiennej w innej sytuacji niż właściwość
+      @content;
+    }
+  } @else {
+    @error '"#{$breakpoint}" - błąd';   // kompilacja jest przerywana i wyświetlana zostaje stosowna informacja
+  }
+}
+użycie:
+w odpowiednim miejscu zagnieżdżenia - np. @include mq(xsmall) { ... }
