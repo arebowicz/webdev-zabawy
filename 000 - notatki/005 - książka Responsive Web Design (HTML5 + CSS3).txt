@@ -1,0 +1,140 @@
+zamieszczę w tym pliku notatki poczynione podczas lektury książki: Responsive Web Design
+responsywność jest obecnie (a właściwie już od pewnego, może nawet dłuższego czasu) standardem -- stąd zdecydowałem się zakupić (i przeczytać) powyższą pozycję
+notatki sporządzam zgodnie z myślą - czytając, uczę się, lecz pisząc, uczę się jeszcze więcej
+
+
+rozdział 1 -- podstawowe wiadomości o projektowaniu responsywnych stron internetowych:
+
+kiedyś: rozsądnym podejściem było tworzenie witryn o stałej szerokości, dzięki czemu użytkownik końcowy uzyskiwał z grubsza podobne efekty na różnych urządzeniach; ta stała szerokość wynosiła np. 960px - i nie była ona zbyt duża dla ekranów laptopów, a jedyną niedogodnością, jakiej doświadczali waściciele dużych monitorów, były obszerne marginesy
+w chwili pisania notatki: łączne korzystanie ze stron internetowych przypada w 60.2% na urządzenia mobilne, a w 37.8% na komputery (na podstawie StatCounter)
+i wszystkie badania wyraźnie wskazują na ciągły wzrost popularności urządzeń mobilnych, choć z drugiej strony korzystamy też z coraz większych ekranów (np. 27, czy 30 cali) -- w efekcie różnica między najmniejszymi i największymi wyświetlaczami stała się większa niż kiedyś
+problem zróżnicowania rozmiarów urządzeń rozwiązujemy dziś budując responsywny projekt strony internetowej za pomocą HTML i CSS, nie potrzeba już rozwiązań serwerowych (np. przekierowanie przeglądarki do odpowiedniego URL w wersji mobilnej/komputerowej)
+
+projektowanie responsywnych stron internetowych polega na prezentowaniu treści w sposób najbardziej odpowiedni dla określonego urządzenia (i dostępnego w nim obszaru roboczego)
+początkowo, układy responsywne budowano najpierw tworząc wersję strony o stałej szerokości dla komputerów stacjonarnych, a następnie układ ulegał modyfikacjom i stronę dostosowywano do mniejszych urządzeń
+obecnie przyjmuje się podejście odwrotne, tzn. najpierw tworzy się strony na potrzeby najmniejszych ekranów, aby następnie stopniowo "ulepszać" projekt
+
+różnorakich urządzeń z dostępem do sieci jest mnóstwo - stąd często konieczne będzie stosowanie rozwiązań obsługujących większość z nich
+przed rozpoczęciem pracy nad projektem warto zdecydować z wyprzedzeniem, jakim platformom konieczne będzie zapewnienie pełnej obsługi oraz w przypadku których jesteś gotów pogodzić się z występowaniem wizualnych czy funkcjonalnych anomalii
+co gdyby 20% użytkowników korzystało z IE? albo z androida w wersji 4?
+caniuse.com - które przeglądarki i do jakiego stopnia obsługują różne funkcje
+podejście "stopniowego ulepszania" - rozpoczynamy od witryny działającej i dostępnej na najprostszych przeglądarkach
+co do wyboru: jeśli koszt przystosowania strony do jakiejś przeglądarki/platformy przewyższa potencjalne zyski, jakie można osiągnąć dzięki użytkownikom korzystającym z danej technologii, to nie twórz rozwiązań dla tej przeglądarki/platformy
+
+strony internetowe, standardowo, nawet bez media queries, są dosyć elastyczne - po otwarciu przykładowej witryny w przeglądarce i zmianie rozmiaru okna, tekst dopasowuje się do ilości miejsca
+gdybym stworzył witrynę nieresponsywną, wyświetlona zostałaby na telefonie następująco: najpierw przeglądarka wyrenderowałaby ją w pewnej domyślnej, sporej szerokości (np. 980px), a następnie "zmniejszyła" do obszaru roboczego
+obszar roboczy - widoczny obszar okna przeglądarki (nie obejmuje pasków narzędzi, paska adresu itd)
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> - za pomocą tego znacznika sygnalizujemy, że chcemy, aby treść została wyrenderowana zgodnie z szerokością urządzenia
+dzięki powyższemu znacznikowi meta "poprawiamy" wygląd strony na telefonach
+
+załóżmy teraz, że do sporej ilości tekstu, chcemy dodać obrazek o wysokiej rozdzielczości
+niech wymiary naszego telefonu wynoszą mniej-więcej 400x900px, ale przecież możemy ten telefon obrócić, albo możemy wziąć do ręki inny - stąd ustawienie "sztywnej", stałej szerokości odpada - przecież potrzebujemy, aby obraz dostosowywał się do różnych rodzajów ekranu...
+możemy więc ustawić stosowną regułę css:
+img {
+  max-width: 100%;
+}
+wówczas, z jednej strony, maksymalna szerokość każdego obrazu nie może być większa niż jego całkowita szerokość (więc obraz nie może zostać powiększony); i, z drugiej strony, jeśli zawierający obraz kontener (np. body, div) będzie miał szerokość mniejszą niż normalna szerokość tego obrazu, to grafika odpowiednio się dostosuje
+[może więc, niekiedy, warto ustawić max-width: 100% dla wszystkich obrazów na stronie? hmm...]
+
+następnie zauważmy, że w okolicy 800px szerokości okna nasza przykładowa strona, za sprawą wielkości obrazu, staje się nadmiarowo rozciągnięta
+skorzystamy tu z zapytań medialnych (media queries), za pomocą których dostosujemy układ strony do szerokości ekranu
+w skrócie: zapytania medialne służą do pisania specjalnych reguł css, które znajdują zastosowanie tylko w pewnych warunkach (np. przy określonej szerokości lub wysokości ekranu)
+w tym miejscu musimy zapoznać się z pojęciem punktu kontrolnego (breakpoints) - punkt kontrolny to określona wysokość lub szerokość obszaru roboczego, po której przekroczeniu powinna nastąpić radykalna zmiana responsywnego układu strony
+pamiętaj, że breakpointsy nie mają stałej wartości (to twórca je "wyznacza") i używać ich można tylko, jeśli projekt faktycznie ich potrzebuje, a nie na potrzeby konkretnych urządzeń
+bo wadą podejścia opartego o punkty kontrolne jest uzależnianie projektu od konkretnych rozmiarów ekranu, a przecież zazwyczaj chcemy tworzyć projekt responsywny, czyli taki, dla którego rozmiar ekranu nie ma znaczenia - nasza strona ma wyglądać świetnie wszędzie, a nie tylko na wybranych urządzeniach
+jednak doprowadzając tę przykładową stronę do ładu i składu, posłużymy się jednym rodzajem media queries, tym, które służy do określania minimalnej szerokości ekranu
+gdy szerokość obszaru roboczego przeglądarki przekroczy określoną wartość, reguły css (znajdujące się w takim media queries) zostaną zastosowane
+@media screen and (min-width: 800px) {
+  ...
+}
+dyrektywa @media informuje przeglądarkę, że w tym miejscu rozpoczyna się zapytanie medialne
+słowo kluczowe screen sygnalizuje przeglądarce, że ten zestaw reguł należy zastosować dla wszystkich typów ekranów
+natomiast część and, która łączy się z kolejnym warunkiem, tu (min-width: 800px), oznacza, że reguły te są zarezerwowane dla ekranów o szerokości nie mniejszej niż 800px
+myśl: brak zapytań medialnych to tak naprawdę pierwsze zapytanie medialne -- pierwsze reguły, które piszemy poza wszelkimi media queries, powinny stanowić podstawowy zestaw reguł, który później będzie rozszerzany pod kątem bardziej rozwiniętych urządzeń i większych ekranów
+pamiętaj: mobile first
+
+
+rozdział 2 -- znaczniki html:
+
+html jest szkieletem strony internetowej; treści w sieci można umieszczać bez wykorzystania css/js, ale nie jest to możliwe bez htmla
+
+powszechne jest przekonanie, jakoby pisanie kodu html było banałem; i tę czynność często się zbywa; lecz momentami nietrudno o błędne napisanie kodu html
+
+np. dla niewidomych/niedowidzących, sposób, w jaki piszesz html, może przeobrazić udostępniane treści z chaotycznego mętliku w znaczący, przydatny i przyjazny materiał
+a nawet i widzący użytkownicy moga z większą łatwością korzystać ze stron internetowych, których znaczniki są poprawnie sformatowane
+
+drobna uwaga: html to żywy standard i w np. 2012 podkreślano, że stosuje się html5, aby określić nowoczesne techniki i podejścia do tworzenia stron internetowych, a obecnie to rozróżnienie nie jest już aż tak istotne
+
+poniżej omówię htmlowe słownictwo i jego semantykę (czyli opowiem jak używamy elementów html do opisywania treści zamieszczonych w kodzie)
+
+podstawową strukturę dokumentu html wygeneruję używając emmeta za pomocą ! i znaku tab lub enter
+
+większość elementów w html składa się ze znacznika otwierającego i zamykającego (np. p, head, div), ale niektóre są samodomykające (nazywa się je też elementami pustymi, ponieważ są pozbawione zawartości, np. img, input, meta)
+pisanie htmlowego kodu zazwyczaj wiąże się z "oznaczaniem" lub pisaniem treści ujętych w serię znaczników lub elementów
+
+na początek - omówienie sekcji head (choć lwia część kodu zawarta jest w sekcji body):
+najpierw deklarujemy typ dokumentu - znacznik doctype
+następnie otwieramy element html, który jest korzeniem całego dokumentu, dodatkowo definiujemy w nim atrybut lang, aby określić język strony
+następnie otwieramy element head, a w nim zdefiniujmy choćby kodowanie znaków (praawie zawsze UTF-8)
+
+może warto wiedzieć, że html5 jest dość "pobłażliwy" - nie trzeba pisać type="text/css" przy linkowaniu arkuszy stylów, można pomijać cudzysłowy, mieszać wielkie oraz małe litery i rezygnować z kończącego ukośnika (w przypadku elementów samodomykających)
+mimo to warto pisać kod rozsądnie - przejrzyście i czytelnie
+
+nowe elementy semantyczne html5:
+semantyka czyli, w skrócie, nadawanie linijkom kodu znaczenia
+stosowanie tych nowych, semantycznych znaczników (zamiast wszechobecnych kiedyś divów) jest ważne, ponieważ pozwala przeglądarkom/czytnikom ekranu/robotom indeksującym/itp stwierdzić, jakie jest przeznaczenie danej sekcji
+
+element main - oznacza główną treść strony internetowej
+za specyfikacją: "główny obszar treści dokumentu zawiera treść przynależną tylko do tego dokumentu; nie zalicza sie do niej treści występującej w wielu dokumentach, jak nawigacja witryny, informacja o prawach autorskich, logo i banery, czy formularze wyszukiwania (chyba że dokument lub aplikacja reprezentuje formularz wyszukiwania)"
+na stronie powinien znajdować się tylko jeden element main
+ponadto, nie powinien być on potomkiem żadnego innego elementu semantycznego np. article, aside, header, footer czy nav
+
+element section - używany jest do wyznaczenia standardowej sekcji dokumentu/aplikacji, dla przykładu: wszystkie treści na stronie możesz podzielić na sekcje, pierwsza będzie zawierać informacje, druga wiadomości za kanału rss itd; podziału tego nie dokonuje się w celu nałożenia formatowania z arkuszy stylów -- jeśli chodzi o nadanie elementowi stylu css, użyj zwykłego elementu div
+
+element nav - wykorzystywany do definiowania głównych bloków nawigacyjnych - łączy do innych stron lub części wewnątrz tej samej strony; może występować w stopce i w innych miejscach z dużymi grupami linków; warto łączyć z listą nieuporządkowaną (ul)
+
+element article - może mylić się z section; element article może zawierać autonomiczny fragment treści strony - jego treść można przekopiować na inną witrynę, zachowując sens; np. post bloga; w razie zagnieżdżania jednego article w innym article, miej na uwadze, że zagnieżdżana zawartość powinna w jakiś sposób odwoływać się do treści w komponencie nadrzędnym
+
+element aside - zawartość, która jest w pewien sposób powiązana z treścią wokół niego; w praktyce najczęściej występuje w paskach bocznych; mogą również pojawiać się w nim wybrane cytaty z tekstu głównego, reklamy oraz elementy nawigacji; zasadniczo - można umieścić w nim wszystko, co nie jest bezpośrednio związane z treścią główną; np. w przypadku sklepu internetowego, w aside można umieścić "klienci, którzy kupili ten produkt, kupowali również..."
+
+element header - może być wykorzystywany w roli kontenera nagłówka strony, ale równie dobrze może znaleźć się w nim wstęp do artykułu czy innej sekcji; na stronie może być dowolna liczba tych elementów (np. po jednym w każdym section)
+
+element footer - powinien zaierać informacje o sekcji, w której się znajduje; mogą pojawić się w nim również np. odnośniki do innych dokumentów lub informacje o prawach własności; podobnie jak element header, footer może występować wielokrotnie w obrębie tej samej strony; może stanowić zarówno stopkę całego bloga, jak i stopkę opublikowanego w nim wpisu (jednakże informacje o autorach i podobne powinny znaleźć się nie w elemencie footer, a w elemencie address)
+
+algorytm tworzenia zarysu dokumentu html5:
+w dokumencie html nagłówki standardowo zaczynają się do h1, który wskazuje tytuł strony, a znaczniki kolejnych, niższych poziomów hierarchii używane są do oznaczania śródtytułów i tym podobnych treści
+w html5 każdy kontener sekcyjny może mieć własny, samodzielny zarys; oznacza to, że nie musisz zastanawiać się nad poziomem nagłówka w hierarchii całego dokumentu, lecz skupić się na tym kontenerze, na którym pracujesz
+pożądane jest to np. w przypadku bloga, gdy używasz nagłówków h1 do oznaczania zarówno tytułów wpisów jak i tytułu bloga
+przykład:
+<h1>tytuł strony</h1>
+<section>
+  <h1>tutaj jakieś informacje</h1>
+  <p>tutaj piszę coś</p>
+</section>
+<article>
+  <header>
+    <h1>tutaj wpis o czymś</h1>
+    <p>naprawdę porywające wprowadzenie</p>
+  </header>
+</article>
+jak widać, nagłówków h1 jest kilka, a zarys dokumentu wciąż wygląda następująco:
+1. tytuł strony
+2. tutaj piszę jakieś informacje
+3. tutaj wpis o czymś
+a zatem nie muszę zaprzątać sobie głowy tym, jakiego nagłówka użyć w odniesieniu do całego dokumentu; możliwe powinno być użycie dowolnego nagłówka właściwego poziomu w obrębie każdej sekcji tak, aby algorytm tworzenia zarysu dokumentu html5 odpowiednio go uporządkował
+pytanie: czy aby napewno? -- w rzeczywistości wyszukiwarki obecnie nie korzystają z zarysów html5; ale co z technologiami asystującymi (dostępność strony)?
+a, w ogóle, sam standard w3.org nie zaleca oznaczania nagłówków i podnagłówków za pomocą elementów h1-h6, na przykład w tego typu sytuacjach:
+<h1>babeczki:</h1>
+<h2>najświetniejsza z przekąsek</h2>
+bo, za specyfikacją języka html5: "elementy h1-h6 powinny być używane do oznaczania podnagłówków, podtytułów, alternatywnych tytułów itp. tylko wtedy, gdy mają pełnić funkcję nagłówka całej sekcji"
+więc powyższy kod można zmienić na:
+<h1>babeczki:</h1>
+<p>najświetniejsza z przekąsek</p>
+
+element grupujący div jest wszechobecny - ponieważ pozbawiony jest znaczenia (nie przekazuje żadnej treści); jedynym sugerowanym znaczeniem elementu znacznika div jest to, że służy do grupowania czegoś
+w sumie div to powinna być ostateczność - używaj go wtedy, gdy nie ma innej opcji (jest sporo znaczników html5, które lepiej sprawdzą się tam, gdzie kiedyś korzystano z divów)
+
+element p - służy do oznaczania akapitów; warto używać go do oznaczania dowolnego tekstu, także ogólnego, żeby nie używać div
+
++ są jeszcze inne elementy, w które narazie się nie zagłębię
+strony 48-62 zostawiam zatem "na potem"
